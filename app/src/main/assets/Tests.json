@@ -1,0 +1,324 @@
+[
+  {
+    "id":1,
+    "title": "Public Service Commission",
+    "desc": "Public Service Commission",
+    "testduration": 10800000,
+    "testarttime": 1531273935696,
+    "mcqs": [
+
+      {
+        "question": "Gaucher’s diease is due to deficiency of enzyme",
+        "year": "2014",
+        "wronganswer2": "Hexosaminidase-A",
+        "wronganswer1": "Beta Glucosidase",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "Beta Galactosidase",
+        "rightanswer": "Sphingomyelinase",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Juvenile Rheuamatoid Arthritis is associated with poor prognosis if",
+        "year": "2014",
+        "wronganswer2": "Rheumatoid factor absent",
+        "wronganswer1": "Inflammatory mediators >3 months",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "Oligo-articular",
+        "rightanswer": "Fever > 3 months",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Not included in rotator cuff muscles",
+        "year": "2014",
+        "wronganswer2": "Teres Major",
+        "wronganswer1": "Infraspinatus",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "Teres Minor",
+        "rightanswer": "Supraspinatus",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Conversion of pyruvate to acetyl coA is associated with how much ATP production",
+        "year": "2014",
+        "wronganswer2": "3",
+        "wronganswer1": "2",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "4",
+        "rightanswer": "0",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "While massaging oil to a neonate an abdominal mass was felt , most likely the cause is",
+        "year": "2014",
+        "wronganswer2": "Wilm’s tumor",
+        "wronganswer1": "Multicystic dysplastic kidney",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "Polycystic disease of kidney",
+        "rightanswer": "Neurobastoma",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Loss of tear secretion due to lesion at",
+        "year": "2014",
+        "wronganswer2": "Submendibular ganglion",
+        "wronganswer1": "Sphenopalatine ganglion",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "All of above",
+        "rightanswer": "Ciliary ganglion",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Major contributing artery of little’s area of nose is",
+        "year": "2014",
+        "wronganswer2": "Posterior ethmoidal artery",
+        "wronganswer1": "Anterior ethmoidal artery",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "Branches of grater palatine artery",
+        "rightanswer": "Sphenopalatine artery",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "A child with large VSD manifests in",
+        "year": "2014",
+        "wronganswer2": "2 months",
+        "wronganswer1": "2 weeks",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "6 months",
+        "rightanswer": "2 days",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Profunda femoris artery is related to",
+        "year": "2014",
+        "wronganswer2": "Between pectineus & adductor canal",
+        "wronganswer1": "Apex of femoral canal",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "Between pectineus & psoas major",
+        "rightanswer": "Inguinal ligament",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Afferent nerve of propioception",
+        "year": "2014",
+        "wronganswer2": "?",
+        "wronganswer1": "?",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "?",
+        "rightanswer": "?",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Vibration is sensed by",
+        "year": "2014",
+        "wronganswer2": "Reissener corpuscles",
+        "wronganswer1": "Markel disc",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "A ? fibers",
+        "rightanswer": "Pacinian corpuscles",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Distortion of message means",
+        "year": "2014",
+        "wronganswer2": "Inability to perceive",
+        "wronganswer1": "Twisting of message",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "Clang association",
+        "rightanswer": "Loss of clearity",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Ligament of cooper is modification of",
+        "year": "2014",
+        "wronganswer2": "Fibrous tissue of breast",
+        "wronganswer1": "Pectoral fascia",
+        "cat": "ANATHESIAA",
+        "wronganswer3": "Ducts",
+        "rightanswer": "Pectoral muscle",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Purkinje cell of cerebellum synapse with",
+        "year": "2014",
+        "wronganswer2": "Granule cells",
+        "wronganswer1": "Dentate nucleus",
+        "wronganswer3": "Pulvinar muscle",
+        "rightanswer": "Red nucleus",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Isograft is",
+        "year": "2014",
+        "wronganswer2": "Between human to human",
+        "wronganswer1": "With different species",
+        "cat": "ANATOMY",
+        "wronganswer3": "Between monozygotic twins",
+        "rightanswer": "From one body part to same individual",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Umbilical cord has",
+        "year": "2014",
+        "wronganswer2": "1 artery + 1 vein",
+        "wronganswer1": "2 arteries + 1 vein",
+        "cat": "ANATOMY",
+        "wronganswer3": "2 arteries + 2 veins",
+        "rightanswer": "1 artery + 2 veins",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Root value of ankle is",
+        "year": "2014",
+        "wronganswer2": "L3L4",
+        "wronganswer1": "L4 L5",
+        "wronganswer3": "L2 L3",
+        "rightanswer": "S1S2",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Virchow node is",
+        "year": "2014",
+        "wronganswer2": "Infraclavicular lymph node",
+        "wronganswer1": "Left supraclavicular lymph node",
+        "cat": "SURGERY",
+        "wronganswer3": "Right supraclavicular lymph node",
+        "rightanswer": "Paratracheal lymph node",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Hyoid bone is derived of which brachial arch",
+        "year": "2014",
+        "wronganswer2": "3rd",
+        "wronganswer1": "2nd",
+        "cat": "ANATOMY",
+        "wronganswer3": "4th",
+        "rightanswer": "2nd & 3rd",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Haemophilus influenza biotype aegyptius is also known as",
+        "year": "2014",
+        "wronganswer2": "Loffler’s bacillus",
+        "wronganswer1": "Koch- weeks bacillus",
+        "wronganswer3": "Hansen’s bacillus",
+        "rightanswer": "Koch’s bacillus",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Most infective stage of syphilis is",
+        "year": "2014",
+        "wronganswer2": "Tertiary stage",
+        "wronganswer1": "Secondary stage",
+        "wronganswer3": "Congenital syphilis",
+        "rightanswer": "Primary stage",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "True regarding syphilis is",
+        "year": "2014",
+        "wronganswer2": "Latent period is not seen",
+        "wronganswer1": "Spirochetes is gram positive",
+        "wronganswer3": "Treated by amoxicillin",
+        "rightanswer": "Neurosyphilis seen in tertiary stage",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Increased IgA",
+        "year": "2014",
+        "wronganswer2": "Biliary cirrhosis",
+        "wronganswer1": "Alcoholic hepatitis",
+        "cat": "MICROBIOLOGY",
+        "wronganswer3": "Gilbert hyperbilirubinemia",
+        "rightanswer": "Autoimmune hepatitis",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Maximum organism can be grown on",
+        "year": "2014",
+        "wronganswer2": "Muller- Hilton agar",
+        "wronganswer1": "Chocolate agar",
+        "cat": "MICROBIOLOGY",
+        "wronganswer3": "Blood agar",
+        "rightanswer": "Nutrient agar",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Mesophilic organism best grown at Ph",
+        "year": "2014",
+        "wronganswer2": "6.5",
+        "wronganswer1": "7.3",
+        "cat": "MICROBIOLOGY",
+        "wronganswer3": "8.5",
+        "rightanswer": "7.5",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Typhus is caused by",
+        "year": "2014",
+        "wronganswer2": "Lice",
+        "wronganswer1": "Ricketsia",
+        "cat": "MICROBIOLOGY",
+        "wronganswer3": "Sand fly",
+        "rightanswer": "Mite",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Hemoptysis is associated with",
+        "year": "2014",
+        "wronganswer2": "Fasciola hepatia",
+        "wronganswer1": "nector",
+        "wronganswer3": "westermanai",
+        "rightanswer": "Fasciola buski",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Otomycosis is caused by",
+        "year": "2014",
+        "wronganswer2": "Candida albicans and balstomycosis",
+        "wronganswer1": "Aspergillus niger and histoplasm",
+        "cat": "ENT",
+        "wronganswer3": "Aspergillus niger and canadida albicans",
+        "rightanswer": "Balstomycosis and Cryptococcus",
+        "board": "IOM",
+        "desc": ""
+      },
+      {
+        "question": "Moniliassis is caused by",
+        "year": "2014",
+        "wronganswer2": "Candida albicans",
+        "wronganswer1": "Aspergillus niger",
+        "wronganswer3": "Trichomonas vaginalis",
+        "rightanswer": "Gardnerella vaginalis",
+        "board": "IOM",
+        "desc": ""
+      }
+    ]
+  }
+]

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+
+    <corners android:topRightRadius="@dimen/ultra_round_buttons" android:bottomRightRadius="@dimen/ultra_round_buttons" android:topLeftRadius="@dimen/ultra_round_buttons" android:bottomLeftRadius="@dimen/ultra_round_buttons"/>
+    <solid android:color="#62b128"/>
+</shape>

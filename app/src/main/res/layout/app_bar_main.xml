@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    tools:context="com.kandara.medicalapp.activity.MainActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/cardStandardPadding"
+        android:layout_marginRight="@dimen/cardStandardPadding"
+        android:background="@drawable/bg_toolbar_top"
+        android:gravity="center"
+        android:padding="@dimen/cardStandardPadding">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/menuIcon"
+            android:layout_width="23dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:tint="@color/navHeeaderNameColor"
+            app:srcCompat="@drawable/ic_menu_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
+
+        <TextView
+            android:id="@+id/actionBarTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/searchIcon"
+            android:layout_toRightOf="@+id/menuIcon"
+            android:text="Home"
+            android:textColor="@color/navHeeaderNameColor"
+            android:textSize="18dp" />
+
+        <EditText
+            android:id="@+id/searchEdittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/searchIcon"
+            android:layout_toRightOf="@+id/menuIcon"
+            android:background="@android:color/transparent"
+            android:hint="Search anything..."
+            android:textColor="@color/navHeeaderNameColor"
+            android:textColorHint="@color/navTvNormalColor"
+            android:textCursorDrawable="@null"
+            android:textSize="16dp" />
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/searchIcon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:tint="@color/navHeeaderNameColor"
+            app:srcCompat="@drawable/ic_search_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+
+</RelativeLayout>

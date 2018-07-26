@@ -1,0 +1,13 @@
+{
+  "userid":1,
+  "firstname":"Abinash",
+  "lastname":"Neupane",
+  "email":"abinash@kandaratech.com",
+  "profilephoto":"https://orig00.deviantart.net/1568/f/2014/120/2/f/yulian_eka_aditya_vector_by_ndop-d7gkvzh.png",
+  "myMcqs":[1,2,3,4,5],
+  "myStudys":[1, 2, 3, 4,5],
+  "correctMCQs":[1,2,3],
+  "incorrectMCQs":[4, 5],
+  "mcqBookmarks":[3, 5],
+  "studyBookmarks":[1, 2]
+}

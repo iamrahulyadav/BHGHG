@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/topPostArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:orientation="vertical"
+        android:padding="@dimen/cardStandardPadding"
+        android:background="@drawable/bg_discussion_top"
+        >
+
+        <EditText
+            android:id="@+id/discussionContentField"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="top|left"
+            android:hint="Write Something..."
+            android:lines="4"
+            android:maxLines="4"
+            android:textColor="@color/colorDarkGray"
+            android:textColorHint="@color/navTvNormalColor"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/option1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_options_normal"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="15dp"
+            android:textColor="@color/colorDarkGray"
+            />
+
+        <TextView
+            android:id="@+id/option2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_options_normal"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="15dp"
+            android:textColor="@color/colorDarkGray"
+            />
+
+        <TextView
+            android:id="@+id/option3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_options_normal"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="15dp"
+            android:textColor="@color/colorDarkGray"
+            />
+
+
+        <TextView
+            android:id="@+id/option4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_options_normal"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textSize="15dp"
+            android:textColor="@color/colorDarkGray"
+            />
+
+
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/bottomPostArea"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_below="@+id/topPostArea"
+        android:layout_marginBottom="@dimen/cardStandardPadding"
+        android:background="@drawable/bg_discussion_bottom"
+        >
+
+
+        <Button
+            android:id="@+id/btnAddMcq"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/bg_add_mcq"
+            android:elevation="0dp"
+            android:text="Add/Edit MCQ"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite" />
+
+        <Button
+            android:id="@+id/btnPostDiscussion"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_post_discussion"
+            android:text="Post"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

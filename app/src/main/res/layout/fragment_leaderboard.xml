@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kandara.medicalapp.fragment.LeaderboardFragment">
+
+    <LinearLayout
+        android:id="@+id/filterLayout"
+        android:layout_marginLeft="@dimen/cardStandardPadding"
+        android:layout_marginRight="@dimen/cardStandardPadding"
+        android:layout_marginBottom="@dimen/cardStandardPadding"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_alltime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:padding="2dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:background="@drawable/capsule_bg_gray"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="All Time" />
+
+        <TextView
+            android:id="@+id/tv_thismonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:padding="2dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:background="@drawable/capsule_bg_gray"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="This Month" />
+
+        <TextView
+            android:id="@+id/tv_thisweek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:padding="2dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:background="@drawable/capsule_bg_gray"
+            android:clickable="true"
+            android:focusable="true"
+            android:text="This Week" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvLeaderboard"
+        android:layout_below="@+id/filterLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/colorWhiteGray"
+    android:layout_height="match_parent">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/topTitle"
+            android:weightSum="5">
+
+            <LinearLayout
+                android:id="@+id/btnAddtoRevision"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/bg_discussion_top_left"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="7dp">
+
+                <TextView
+                    android:id="@+id/tvAddTorevision"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="Select Question"
+                    android:textColor="@color/colorDarkGray" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnMoreInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:background="@drawable/bg_discussion_top_right"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="7dp">
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/questionGridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/cardStandardPadding"
+            android:scrollbars="none"
+            android:layout_below="@+id/topTitle"
+            android:numColumns="5"
+            android:verticalSpacing="@dimen/cardStandardPadding"
+            android:horizontalSpacing="@dimen/cardStandardPadding"
+            />
+
+
+</RelativeLayout>

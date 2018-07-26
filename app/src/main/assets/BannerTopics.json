@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Online Test",
+    "photo":"https://images.pexels.com/photos/8769/pen-writing-notes-studying.jpg?auto=compress&cs=tinysrgb&h=350",
+    "desc": "Lorem ipsum dolor sit amet, consectetur exercitation"
+  },
+  {
+    "name": "Boost your ranking",
+    "photo":"https://images.pexels.com/photos/355934/pexels-photo-355934.jpeg?auto=compress&cs=tinysrgb&h=350",
+    "desc": "Lorem ipsum dolor sit amet, consectetur adipiscingris"
+  },
+  {
+    "name": "Study Anywhere",
+    "photo":"https://images.pexels.com/photos/359757/pexels-photo-359757.jpeg?auto=compress&cs=tinysrgb&h=350",
+    "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing"
+  },
+  {
+    "name": "Interactive study modes",
+    "photo":"https://images.pexels.com/photos/401683/pexels-photo-401683.jpeg?auto=compress&cs=tinysrgb&h=350",
+    "desc": "Lorem ipsum dolor sit amet, consectetur adipiscing "
+  }
+]

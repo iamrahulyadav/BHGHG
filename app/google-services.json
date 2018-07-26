@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "843409674469",
+    "firebase_url": "https://medapp-3a74a.firebaseio.com",
+    "project_id": "medapp-3a74a",
+    "storage_bucket": "medapp-3a74a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:843409674469:android:f34b54eb636f3039",
+        "android_client_info": {
+          "package_name": "com.kandara.medicalapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "843409674469-77pn4t9naa47vsklasqpiv7l7siilsqt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMpnbKbhX9fpkKAvzvOAEPBMK_ugUyz6o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

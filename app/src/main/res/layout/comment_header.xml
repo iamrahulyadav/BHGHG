@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:paddingRight="@dimen/cardStandardPadding"
+    android:paddingLeft="@dimen/cardStandardPadding"
+    android:paddingBottom="@dimen/cardStandardPadding"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/topPostArea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/cardStandardPadding"
+        android:background="@drawable/bg_comment_top"
+        >
+
+        <EditText
+            android:id="@+id/commentField"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:gravity="top|left"
+            android:hint="Write Something..."
+            android:lines="2"
+            android:maxLines="4"
+            android:textColor="@color/colorDarkGray"
+            android:textColorHint="@color/navTvNormalColor"
+            android:textSize="16dp" />
+    </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/bottomPostArea"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_below="@+id/topPostArea"
+        android:layout_marginBottom="@dimen/cardStandardPadding"
+        android:background="@drawable/bg_discussion_bottom"
+        >
+
+        <Button
+            android:id="@+id/btnPostComment"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_post_discussion"
+            android:text="Post"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:background="@drawable/bg_discussion"
+        android:layout_marginBottom="@dimen/cardStandardPadding"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/cardStandardPadding"
+        android:paddingRight="@dimen/cardStandardPadding"
+        android:paddingTop="70dp"
+        android:paddingBottom="70dp">
+
+
+
+        <TextView
+            android:id="@+id/tvComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_image"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="What is your name?"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:id="@+id/linAnswers"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvComment"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

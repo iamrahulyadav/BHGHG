@@ -1,0 +1,113 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.kandara.medicalapp.fragment.MCQFragments.MCQUniversityFragment">
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/univIcon"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        app:srcCompat="@drawable/ic_university"
+        tools:ignore="VectorDrawableCompat" />
+
+
+    <TextView
+        android:id="@+id/tvSelectUniversity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@id/univIcon"
+        android:textSize="17dp"
+        android:textColor="#000000"
+        android:layout_margin="5dp"
+        android:text="Select university"
+        />
+
+    <LinearLayout
+        android:layout_below="@id/tvSelectUniversity"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        >
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+
+            <com.kandara.medicalapp.View.SquareRelativeLayout
+                android:id="@+id/linUnv1"
+                android:layout_width="@dimen/square_width"
+                android:layout_height="@dimen/square_width"
+                android:layout_marginRight="@dimen/cardStandardPadding"
+                android:background="@drawable/bg_white_rounded"
+                android:gravity="center"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvUnvTitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TU" />
+            </com.kandara.medicalapp.View.SquareRelativeLayout>
+
+            <com.kandara.medicalapp.View.SquareRelativeLayout
+                android:id="@+id/linUnv2"
+                android:layout_width="@dimen/square_width"
+                android:layout_height="@dimen/square_width"
+                android:layout_marginRight="@dimen/cardStandardPadding"
+                android:background="@drawable/bg_white_rounded"
+                android:gravity="center"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvUnvTitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="KU" />
+            </com.kandara.medicalapp.View.SquareRelativeLayout>
+
+
+            <com.kandara.medicalapp.View.SquareRelativeLayout
+                android:id="@+id/linUnv3"
+                android:layout_width="@dimen/square_width"
+                android:layout_height="@dimen/square_width"
+                android:layout_marginRight="@dimen/cardStandardPadding"
+                android:background="@drawable/bg_white_rounded"
+                android:gravity="center"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvUnvTitle3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="All" />
+            </com.kandara.medicalapp.View.SquareRelativeLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>

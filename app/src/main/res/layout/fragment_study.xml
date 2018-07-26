@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.kandara.medicalapp.fragment.StudyFragment">
+
+    <ListView
+        android:id="@+id/study_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
+        android:layout_marginBottom="@dimen/cardStandardPadding"
+        android:layout_marginTop="@dimen/cardStandardPadding"></ListView>
+
+
+</RelativeLayout>

@@ -1,0 +1,43 @@
+[
+  {
+    "discussionid":1,
+    "name": "Prem Raj Sigdel",
+    "userid":1,
+    "profilephoto": "https://i.ndtvimg.com/i/2017-02/rare-disease-620x350_620x350_41488260155.jpg",
+    "type": 0,
+    "question": "What is your name",
+    "answers": [
+      {
+        "option": "Answer 1",
+        "vote": "230",
+        "votedby":[1, 2, 3,4,5]
+      },
+      {
+        "option": "Answer 2",
+        "vote": "23",
+        "votedby":[1, 2, 3,4,5]
+      },
+      {
+        "option": "Answer 3",
+        "vote": "56",
+        "votedby":[1, 2, 3,4,5]
+      },
+      {
+        "option": "Answer 4",
+        "vote": "123",
+        "votedby":[1, 2, 3,4,5]
+      }
+    ],
+    "favoritedby":[1, 2,3, 4,5]
+  }
+,
+  {
+    "discussionid":1,
+    "name": "Abinash Neupane",
+    "profilephoto": "http://www.nuffieldfoundation.org/sites/default/files/PB_health-and-disease.jpg",
+    "type": 1,
+    "userid":1,
+    "question": "How are you?",
+    "favoritedby":[1, 2,3, 4,5]
+  }
+]

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/cardStandardPadding"
+        android:background="@drawable/bg_discussion"
+        android:orientation="vertical"
+        android:padding="@dimen/cardStandardPadding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.kandara.medicalapp.View.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:scaleType="centerCrop"
+                android:src="@android:drawable/sym_call_missed"
+                app:riv_oval="true" />
+
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:text="Abinash"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tvComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_image"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:text="What is your name?"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="18dp" />
+
+        <LinearLayout
+            android:id="@+id/options"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvComment"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/optionRLA"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+
+
+                <RelativeLayout
+                    android:id="@+id/opnA"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/bg_options_normal">
+
+                    <TextView
+                        android:id="@+id/tvOptionA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="left"
+                        android:text="A. Abinash" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvOptionPercentageA"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25%"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorDarkGray"
+                    android:layout_toRightOf="@+id/opnA"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/optionRLB"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+
+
+                <RelativeLayout
+                    android:id="@+id/opnB"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/bg_options_normal">
+
+                    <TextView
+                        android:id="@+id/tvOptionB"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="left"
+                        android:text="A. Abinash" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvOptionPercentageB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25%"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorDarkGray"
+                    android:layout_toRightOf="@+id/opnB"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/optionRLC"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+
+
+                <RelativeLayout
+                    android:id="@+id/opnC"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/bg_options_normal">
+
+                    <TextView
+                        android:id="@+id/tvOptionC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="left"
+                        android:text="A. Abinash" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvOptionPercentageC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25%"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorDarkGray"
+                    android:layout_toRightOf="@+id/opnC"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/optionRLD"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+
+
+                <RelativeLayout
+                    android:id="@+id/opnD"
+                    android:layout_width="200dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/bg_options_normal">
+
+                    <TextView
+                        android:id="@+id/tvOptionD"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:gravity="left"
+                        android:text="A. Abinash" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tvOptionPercentageD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25%"
+                    android:layout_marginLeft="5dp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorDarkGray"
+                    android:layout_toRightOf="@+id/opnD"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="15dp"
+            android:background="#d8d8d8" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/cardStandardPadding"
+            android:weightSum="2">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/btnLike"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_love_empty"
+                tools:ignore="VectorDrawableCompat" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/btnComment"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/ic_comment"
+                tools:ignore="VectorDrawableCompat" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

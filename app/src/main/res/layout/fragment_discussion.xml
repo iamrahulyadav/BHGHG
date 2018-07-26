@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/cardStandardPadding"
+    tools:context="com.kandara.medicalapp.fragment.DiscussionFragment">
+
+    <Button
+        android:id="@+id/btnDiscussInFb"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="Discuss in Facebook"
+        android:background="#3b5998"
+        android:textColor="@color/colorWhite"
+        />
+
+    <ListView
+        android:id="@+id/discussionList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/cardStandardPadding"
+        android:layout_below="@+id/btnDiscussInFb"
+        android:scrollbars="none"
+        android:divider="@android:color/transparent"
+        />
+
+</RelativeLayout>

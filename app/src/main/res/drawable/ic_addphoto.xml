@@ -1,0 +1,6 @@
+<vector android:height="24dp" android:viewportHeight="800"
+    android:viewportWidth="800" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
+    <path android:fillColor="#ddd" android:name="Rectangle 1" android:pathData="m-27 -23h899v880h-899v-880z"/>
+    <path android:fillColor="#fff"
+        android:name="Rounded Rectangle 1 copy" android:pathData="m386.5 172c-14.8 0 -26.8 12 -26.8 26.8v190.8h-190.8c-14.8 0 -26.8 12 -26.8 26.8c0 14.8 12 26.8 26.8 26.8h190.8v190.8c0 14.8 12 26.8 26.8 26.8c14.8 0 26.8 -12 26.8 -26.8v-190.8h190.8c14.8 0 26.8 -12 26.8 -26.8c0 -14.8 -12 -26.8 -26.8 -26.8h-190.8v-190.8c0 -14.8 -12 -26.8 -26.8 -26.8z"/>
+</vector>

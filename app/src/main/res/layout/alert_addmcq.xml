@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:padding="30dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Options"
+        android:textColor="@color/colorDarkGray"
+        android:textSize="20dp" />
+
+    <LinearLayout
+        android:id="@+id/optionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/option1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:background="@drawable/bg_options_normal">
+
+            <TextView
+                android:id="@+id/tvOptionIndex1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:text="1"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/optionField1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:hint="Enter Option"
+                android:textCursorDrawable="@null"
+                android:textColorHint="@color/colorGray"
+                android:textColor="@color/colorDarkGray"
+                android:layout_toRightOf="@+id/tvOptionIndex1"
+                android:background="@android:color/transparent" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/option2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_options_normal">
+
+            <TextView
+                android:id="@+id/tvOptionIndex2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:text="2"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/optionField2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:hint="Enter Option"
+                android:textCursorDrawable="@null"
+                android:textColorHint="@color/colorGray"
+                android:textColor="@color/colorDarkGray"
+                android:layout_toRightOf="@+id/tvOptionIndex2"
+                android:background="@android:color/transparent" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/option3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_options_normal">
+
+            <TextView
+                android:id="@+id/tvOptionIndex3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:text="3"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/optionField3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:hint="Enter Option"
+                android:textCursorDrawable="@null"
+                android:textColorHint="@color/colorGray"
+                android:textColor="@color/colorDarkGray"
+                android:layout_toRightOf="@+id/tvOptionIndex3"
+                android:background="@android:color/transparent" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/option4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_options_normal">
+
+            <TextView
+                android:id="@+id/tvOptionIndex4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:text="4"
+                android:textColor="@color/colorDarkGray"
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/optionField4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:hint="Enter Option"
+                android:textCursorDrawable="@null"
+                android:textColorHint="@color/colorGray"
+                android:textColor="@color/colorDarkGray"
+                android:layout_toRightOf="@+id/tvOptionIndex4"
+                android:background="@android:color/transparent" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="right"
+        android:orientation="vertical">
+
+
+
+        <Button
+            android:id="@+id/btnDone"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/bg_primary_rounded"
+            android:text="Done"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:textSize="14dp" />
+    </LinearLayout>
+
+
+</LinearLayout>

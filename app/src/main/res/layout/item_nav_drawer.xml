@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="@dimen/nav_item_width">
+
+
+    <LinearLayout
+        android:id="@+id/navIndicator"
+        android:layout_width="4dp"
+        android:layout_height="@dimen/nav_item_width"
+        android:orientation="vertical"
+        android:background="@color/colorPrimary"
+        />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/nav_item_width"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        android:layout_toRightOf="@+id/navIndicator"
+        android:text="Home"
+        android:textColor="@color/navTvNormalColor"
+        />
+</RelativeLayout>

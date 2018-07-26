@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <RelativeLayout
+        android:id="@+id/universitySelector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_discussion"
+        android:padding="@dimen/cardStandardPadding"
+        >
+
+
+        <TextView
+            android:id="@+id/tvUniversity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Select Board"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="15dp" />
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/universityArrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:tint="@color/colorDarkGray"
+            app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
+
+
+
+
+        <ListView
+            android:id="@+id/boardList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/cardStandardPadding"
+            android:scrollbars="none"
+            android:visibility="gone"
+            android:layout_below="@+id/tvUniversity"
+            android:divider="@android:color/transparent"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/chapterSelector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/cardStandardPadding"
+        android:layout_below="@+id/universitySelector"
+        android:background="@drawable/bg_discussion"
+        android:padding="@dimen/cardStandardPadding"
+        >
+
+
+
+        <TextView
+            android:id="@+id/tvChapter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Select Chapters"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="15dp" />
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/chapterArrow"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:tint="@color/colorDarkGray"
+            app:srcCompat="@drawable/ic_keyboard_arrow_down_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
+
+
+
+
+
+        <ListView
+            android:id="@+id/chapterList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:visibility="gone"
+            android:layout_below="@+id/tvChapter"
+            android:divider="@android:color/transparent"
+            />
+    </RelativeLayout>
+</RelativeLayout>

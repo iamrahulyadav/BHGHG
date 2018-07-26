@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <RelativeLayout
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/cardStandardPadding"
+        android:padding="@dimen/cardStandardPadding"
+        android:gravity="center"
+        android:background="@drawable/bg_toolbar_top"
+        >
+
+
+        <EditText
+            android:id="@+id/searchEdittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:layout_toLeftOf="@+id/searchIcon"
+            android:layout_marginLeft="10dp"
+            android:layout_centerVertical="true"
+            android:hint="Search Topic..."
+            android:lines="1"
+            android:maxLines="1"
+            android:imeOptions="actionSearch"
+            android:textCursorDrawable="@null"
+            android:textColorHint="@color/navTvNormalColor"
+            android:textColor="@color/navHeeaderNameColor"
+            android:textSize="16dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/menuIcon"
+            />
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/searchIcon"
+            android:layout_width="20dp"
+            android:layout_centerVertical="true"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:tint="@color/navHeeaderNameColor"
+            app:srcCompat="@drawable/ic_search_black_24dp"
+            tools:ignore="VectorDrawableCompat" />
+
+    </RelativeLayout>
+
+    <com.kandara.medicalapp.View.headerlistview.HeaderListView
+        android:id="@+id/studyListView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/toolbar"
+        ></com.kandara.medicalapp.View.headerlistview.HeaderListView>
+
+
+
+    <RelativeLayout
+        android:id="@+id/mcqProgressView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#CCFFFFFF">
+
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:indeterminateDrawable="@drawable/progress" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

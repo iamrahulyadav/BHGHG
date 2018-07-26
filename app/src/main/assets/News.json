@@ -1,0 +1,43 @@
+[
+  {
+    "title":"News Topic 1",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore mag",
+    "photo":"https://i.ndtvimg.com/i/2017-02/rare-disease-620x350_620x350_41488260155.jpg"
+  },
+  {
+    "title":"News Topic 2",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore mag",
+    "photo":"https://i.ndtvimg.com/i/2017-02/rare-disease-620x350_620x350_41488260155.jpg"
+  },
+  {
+    "title":"News Topic 3",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore mag",
+    "photo":"https://i.ndtvimg.com/i/2017-02/rare-disease-620x350_620x350_41488260155.jpg"
+  },
+  {
+    "title":"News Topic 4",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore mag",
+    "photo":"https://i.ndtvimg.com/i/2017-02/rare-disease-620x350_620x350_41488260155.jpg"
+  },
+  {
+    "title":"News Topic 5",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore mag",
+    "photo":"https://i.ndtvimg.com/i/2017-02/rare-disease-620x350_620x350_41488260155.jpg"
+  },
+  {
+    "title":"News Topic 6",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore mag",
+    "photo":"https://i.ndtvimg.com/i/2017-02/rare-disease-620x350_620x350_41488260155.jpg"
+  },
+  {
+    "title":"News Topic 7",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore mag",
+    "photo":"https://i.ndtvimg.com/i/2017-02/rare-disease-620x350_620x350_41488260155.jpg"
+  },
+  {
+    "title":"News Topic 8",
+    "description":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore mag",
+    "photo":"https://i.ndtvimg.com/i/2017-02/rare-disease-620x350_620x350_41488260155.jpg"
+  }
+
+]

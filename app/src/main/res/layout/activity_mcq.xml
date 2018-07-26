@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    tools:context="com.kandara.medicalapp.activity.MCQActivity">
+
+
+    <RelativeLayout
+        android:id="@+id/mainView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottomIcons"
+        android:layout_below="@+id/btnExit"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="10dp"
+        android:padding="@dimen/cardStandardPadding">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/cardStandardPadding"
+            android:background="@drawable/bg_discussion"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/tvComment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/profile_image"
+                    android:layout_marginTop="5dp"
+                    android:gravity="left"
+                    android:text="What is your name?"
+                    android:textColor="@color/colorDarkGray"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:id="@+id/options"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvComment"
+                    android:layout_marginTop="5dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/optionALayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_options_normal"
+                        android:padding="10dp">
+
+
+                        <TextView
+                            android:id="@+id/tvOptionA"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="left"
+                            android:text="A. Abinash" />
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/optionBLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_options_normal"
+                        android:padding="10dp">
+
+
+                        <TextView
+                            android:id="@+id/tvOptionB"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="left"
+                            android:text="B. Saurav" />
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/optionCLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_options_normal"
+                        android:padding="10dp">
+
+
+                        <TextView
+                            android:id="@+id/tvOptionC"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="left"
+                            android:text="C. Ravi" />
+
+                    </RelativeLayout>
+
+
+                    <RelativeLayout
+                        android:id="@+id/optionDLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/bg_options_normal"
+                        android:padding="10dp">
+
+
+                        <TextView
+                            android:id="@+id/tvOptionD"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:gravity="left"
+                            android:text="D. Nimbus" />
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <HorizontalScrollView
+        android:id="@+id/rightWrongScroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnExit"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/rightWrongLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/btnGrid"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="@dimen/cardStandardPadding"
+        android:padding="3dp"
+        android:tint="@color/colorDarkGray"
+        app:srcCompat="@drawable/ic_gridview"
+        tools:ignore="VectorDrawableCompat" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/btnExit"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_margin="@dimen/cardStandardPadding"
+        android:padding="@dimen/cardStandardPadding"
+        android:tint="@color/colorDarkGray"
+        app:srcCompat="@drawable/ic_cross"
+        tools:ignore="VectorDrawableCompat" />
+
+
+    <LinearLayout
+        android:id="@+id/bottomIcons"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:padding="@dimen/cardStandardPadding"
+        android:weightSum="5">
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/btnAddtoRevision"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_add_to_revision"
+            android:tint="@color/colorDarkGray" />
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/btnMoreInfo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_info_black_24dp"
+            android:tint="@color/colorDarkGray" />
+
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/btnFeedback"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_flag_black_24dp"
+            android:tint="@color/colorDarkGray" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/icLeft"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_keyboard_arrow_left"
+            android:tint="@color/colorDarkGray" />
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/icRight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_keyboard_arrow_right"
+            android:tint="@color/colorDarkGray" />
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/mcqProgressView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#CCFFFFFF">
+
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:indeterminateDrawable="@drawable/progress" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

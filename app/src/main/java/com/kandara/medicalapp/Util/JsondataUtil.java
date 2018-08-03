@@ -203,6 +203,9 @@ public class JsondataUtil {
                 String key = (String) keysToCopyIterator.next();
                 keysList.add(toFirstUpper(key));
             }
+
+            Collections.sort(keysList);
+
             return keysList;
 
         } catch (JSONException e) {
@@ -211,6 +214,47 @@ public class JsondataUtil {
         return topics;
     }
 
+
+
+
+    public static ArrayList<String> getMCQBoards(Context context) {
+        ArrayList<String> boards = new ArrayList<>();
+        try {
+            String jsonString = loadJSONFromAsset(context, "boardyear.json");
+            JSONObject jsonObject=new JSONObject(jsonString);
+            Iterator keysToCopyIterator = jsonObject.keys();
+            ArrayList<String> keysList = new ArrayList<>();
+            while(keysToCopyIterator.hasNext()) {
+                String key = (String) keysToCopyIterator.next();
+                keysList.add(key);
+            }
+            return keysList;
+
+        } catch (JSONException e) {
+            Log.e("json Exception", e.getMessage() + "");
+        }
+        return boards;
+    }
+
+
+    public static ArrayList<String> getYears(String board, Context context) {
+        ArrayList<String> topics = new ArrayList<>();
+        try {
+            String jsonString = loadJSONFromAsset(context, "boardyear.json");
+            JSONObject jsonObject=new JSONObject(jsonString);
+            ArrayList<String> yearArray=new ArrayList<>();
+
+            JSONArray jsonArray=jsonObject.getJSONArray(board);
+            for(int i=0; i<jsonArray.length(); i++){
+                yearArray.add(jsonArray.getInt(i)+"");
+            }
+            return yearArray;
+
+        } catch (JSONException e) {
+            Log.e("json Exception", e.getMessage() + "");
+        }
+        return topics;
+    }
 
     public static String toFirstUpper(String strng){
 

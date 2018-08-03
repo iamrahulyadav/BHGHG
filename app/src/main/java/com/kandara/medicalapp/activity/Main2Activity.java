@@ -10,7 +10,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.kandara.medicalapp.Adapter.DiscussionAdapter;
 import com.kandara.medicalapp.App.MedicalApplication;
+import com.kandara.medicalapp.Model.Discussion;
+import com.kandara.medicalapp.Model.DiscussionAnswer;
 import com.kandara.medicalapp.Model.MCQ;
 import com.kandara.medicalapp.Model.Qt;
 import com.kandara.medicalapp.Model.Study;
@@ -31,6 +34,7 @@ public class Main2Activity extends AppCompatActivity {
 
     ArrayList<Study> studeis;
     ArrayList<MCQ> mcqs;
+    ArrayList<Discussion> discussions;
 
     int page = 1;
     int maximumpage = 1;
@@ -41,13 +45,13 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
         studeis = new ArrayList<>();
         mcqs = new ArrayList<>();
+        discussions=new ArrayList<>();
         //ss();
         //getAllMCQ();
         //downloadAllContent();
         //postAllMCQ();
-
-        //postAllStudy();
-
+        postAllStudy();
+        //getAllDiscussion();
     }
 
     private void postAllMCQ() {
@@ -97,10 +101,70 @@ public class Main2Activity extends AppCompatActivity {
         MedicalApplication.getInstance().addToRequestQueue(jsonObjectRequest, tag_string_req);
     }
 
+    private void deleteAllDiscussion() {
+        String tag_string_req = "req_study";
+        for (Discussion discussion : discussions) {
+            StringRequest stringRequest = new StringRequest(Request.Method.DELETE, AppConstants.URL_DISCUSSION + "/" + discussion.getId(),
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
+                    });
+            MedicalApplication.getInstance().addToRequestQueue(stringRequest, tag_string_req);
+        }
+    }
+
+
+
+    private void getAllDiscussion(){
+
+
+        String tag_string_req = "req_mcqs";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_DISCUSSION,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+
+                            JSONObject dataObject = jsonObject.getJSONObject("data");
+                            JSONArray dataArray = dataObject.getJSONArray("docs");
+
+                            for (int i = 0; i < dataArray.length(); i++) {
+                                JSONObject eachDataJsonObject = dataArray.getJSONObject(i);
+                                Discussion discussion=new Discussion(eachDataJsonObject.getString("_id"));
+
+                                discussions.add(discussion);
+                            }
+
+                            deleteAllDiscussion();
+
+                        } catch (JSONException e) {
+                            Log.e("Json Exception", e.getMessage()+"");
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+        MedicalApplication.getInstance().addToRequestQueue(stringRequest, tag_string_req);
+
+
+    }
+
 
     private void postAllStudy() {
         try {
-            String jsonString = JsondataUtil.loadJSONFromAsset(getApplicationContext(), "final.json");
+            String jsonString = JsondataUtil.loadJSONFromAsset(getApplicationContext(), "final2.json");
             JSONArray jsonArray = new JSONArray(jsonString);
             for (int i = 0; i < jsonArray.length(); i++) {
                 Log.e("Count", (i + 1) + " out of " + jsonArray.length());
@@ -114,19 +178,8 @@ public class Main2Activity extends AppCompatActivity {
     }
 
     private void postEachStudy(JSONObject jsonObject) {
-        JSONObject params = new JSONObject();
-        try {
-            JSONArray wrongAnswers = new JSONArray();
-            wrongAnswers.put(jsonObject.getString("answer"));
-            params.put("answers", wrongAnswers);
-            params.put("question", jsonObject.getString("question"));
-            params.put("category", jsonObject.getString("chaptername"));
-            params.put("subCategory", jsonObject.getString("subchaptername"));
-        } catch (JSONException e) {
-            Log.e("Error", e.getMessage());
-        }
         String tag_string_req = "post_study";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_STUDY, params, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "http://192.168.10.12:5000/api/study", jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.e("RESPONSE", response.toString());
@@ -143,7 +196,7 @@ public class Main2Activity extends AppCompatActivity {
 
     public void ss() {
         String tag_string_req = "req_study";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://163.172.172.57:5000/api/Study?limit=1000&page=1",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.MAIN_URL+"/api/Study?limit=1000&page=1",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -160,7 +213,7 @@ public class Main2Activity extends AppCompatActivity {
                                 study.setQuestionNumber(i + 1);
                                 study.setStudyId(eachDataJsonObject.getString("_id"));
                                 if (eachDataJsonObject.has("imageUrl")) {
-                                    study.setImageUrl("http://163.172.172.57:5000" + eachDataJsonObject.getString("imageUrl"));
+                                    study.setImageUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
                                 }
                                 study.setSubcategory(eachDataJsonObject.getString("subCategory"));
                                 study.setCategory(eachDataJsonObject.getString("category"));
@@ -202,7 +255,7 @@ public class Main2Activity extends AppCompatActivity {
                                 Study study = new Study();
                                 study.setQuestionNumber(i + 1);
                                 study.setStudyId(eachDataJsonObject.getString("_id"));
-                                study.setImageUrl("http://163.172.172.57:5000" + eachDataJsonObject.getString("imageUrl"));
+                                study.setImageUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
                                 study.setSubcategory(eachDataJsonObject.getString("subCategory"));
                                 study.setCategory(eachDataJsonObject.getString("category"));
                                 study.setQuestion(eachDataJsonObject.getString("question"));
@@ -247,10 +300,11 @@ public class Main2Activity extends AppCompatActivity {
 
     private void getAllMCQ() {
         String tag_string_req = "req_study";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_MCQ,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_MCQ+"?limit=1000&page=1",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.e("RESPONSE", response);
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             JSONObject dataObject = jsonObject.getJSONObject("data");
@@ -314,7 +368,7 @@ public class Main2Activity extends AppCompatActivity {
                                 study.setQuestionNumber(i + 1);
                                 study.setStudyId(eachDataJsonObject.getString("_id"));
                                 if (eachDataJsonObject.has("imageUrl")) {
-                                    study.setImageUrl("http://163.172.172.57:5000" + eachDataJsonObject.getString("imageUrl"));
+                                    study.setImageUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
                                 }
                                 study.setSubcategory(eachDataJsonObject.getString("subCategory"));
                                 study.setCategory(eachDataJsonObject.getString("category"));
@@ -357,7 +411,7 @@ public class Main2Activity extends AppCompatActivity {
                                 mcq.setMcqId(eachDataJsonObject.getString("_id"));
                                 mcq.setQuestionNumber(i + 1);
                                 if (eachDataJsonObject.has("imageUrl")) {
-                                    mcq.setPhotoUrl("http://163.172.172.57:5000" + eachDataJsonObject.getString("imageUrl"));
+                                    mcq.setPhotoUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
                                 }
                                 mcq.setRightAnswerDesc(eachDataJsonObject.getString("rightAnswerDesc"));
                                 mcq.setRightAnswer(eachDataJsonObject.getString("rightAnswer"));

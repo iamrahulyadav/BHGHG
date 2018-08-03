@@ -136,7 +136,7 @@ public class StudyModeActivity extends AppCompatActivity {
             premQuery = "limit=" + AppConstants.FREE_USERS_DATA_LIMIT + "&page=1&";
         }
         String tag_string_req = "req_study";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_STUDY + "?" + premQuery + query.replaceAll(" ", "%20"),
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_STUDY + "?" + premQuery + query.replaceAll(" ", "%20")+"&sortBy=questionNumber",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -151,24 +151,19 @@ public class StudyModeActivity extends AppCompatActivity {
                                 study.setId(eachDataJsonObject.getInt("sid"));
                                 study.setStudyId(eachDataJsonObject.getString("_id"));
                                 if (eachDataJsonObject.has("imageUrl")) {
-                                    study.setImageUrl("http://163.172.172.57:5000" + eachDataJsonObject.getString("imageUrl"));
+                                    study.setImageUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
                                 }
                                 study.setSubcategory(eachDataJsonObject.getString("subCategory"));
                                 study.setCategory(eachDataJsonObject.getString("category"));
                                 String question = eachDataJsonObject.getString("question");
-
                                 question=HtmlCleaner.cleanThis(question);
-
                                 String answer = eachDataJsonObject.getJSONArray("answers").getString(0);
                                 answer = HtmlCleaner.cleanThis(answer);
-                                study.setQuestion(question.split("::::")[1]);
-                                study.setQuestionNumber(Integer.parseInt(question.split("::::")[0]));
+                                study.setQuestion(question);
+                                study.setQuestionNumber(eachDataJsonObject.getInt("questionNumber"));
                                 study.setAnswer(answer);
                                 studyArrayList.add(study);
                             }
-                            Collections.reverse(studyArrayList);
-                            Collections.sort(studyArrayList, new CustomComparator());
-
                             if (!AccountManager.isUserPremium(getApplicationContext())) {
 
                                 final Study study = new Study();
@@ -234,31 +229,19 @@ public class StudyModeActivity extends AppCompatActivity {
                                 study.setId(eachDataJsonObject.getInt("sid"));
                                 study.setStudyId(eachDataJsonObject.getString("_id"));
                                 if (eachDataJsonObject.has("imageUrl")) {
-                                    study.setImageUrl("http://163.172.172.57:5000" + eachDataJsonObject.getString("imageUrl"));
+                                    study.setImageUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
                                 }
-
-
-                                String answer = eachDataJsonObject.getJSONArray("answers").getString(0);
-
-                                Document doc = Jsoup.parse(answer);
-
-                                for (Element element : doc.select("*")) {
-                                    if (!element.hasText() && element.isBlock()) {
-                                        element.remove();
-                                    }
-                                }
-                                answer = doc.body().html();
-                                study.setAnswer(answer);
                                 study.setSubcategory(eachDataJsonObject.getString("subCategory"));
                                 study.setCategory(eachDataJsonObject.getString("category"));
-
                                 String question = eachDataJsonObject.getString("question");
-                                study.setQuestion(question.split("::::")[1]);
-                                study.setQuestionNumber(Integer.parseInt(question.split("::::")[0]));
+                                question=HtmlCleaner.cleanThis(question);
+                                String answer = eachDataJsonObject.getJSONArray("answers").getString(0);
+                                answer = HtmlCleaner.cleanThis(answer);
+                                study.setQuestion(question);
+                                study.setQuestionNumber(eachDataJsonObject.getInt("questionNumber"));
+                                study.setAnswer(answer);
                                 searchQueryList.add(study);
                             }
-                            Collections.sort(searchQueryList, new CustomComparator());
-
                             populateHashMap();
                             StudyModeSSSSAdapter studyModeSSSSAdapter = new StudyModeSSSSAdapter(searchList, StudyModeActivity.this);
                             studyModeSSSSAdapter.setSearchTxt(searchTxt);

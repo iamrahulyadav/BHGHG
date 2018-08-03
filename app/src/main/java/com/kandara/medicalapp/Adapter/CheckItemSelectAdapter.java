@@ -91,7 +91,7 @@ public class CheckItemSelectAdapter extends BaseAdapter {
             final AppCompatCheckBox checkBox;
             checkBox = view.findViewById(R.id.checkbox);
             if(position>0) {
-                checkBox.setText((position) + ". " + item.getChaptername());
+                checkBox.setText(item.getChaptername());
             }else{
 
                 checkBox.setText(item.getChaptername());

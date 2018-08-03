@@ -72,13 +72,12 @@ public class OfflineBookStudyAdapter extends BaseAdapter {
         bookmarksBtn = itemView.findViewById(R.id.bookmarkBtn);
         deleteBtn = itemView.findViewById(R.id.deleteBtn);
         mainView = itemView.findViewById(R.id.mainView);
-        topic.setText(toFirstUpper((String) getItem(i)));
-        final ArrayList<String> subTopics = JsondataUtil.getSubTopics((String) getItem(i), activity);
+        topic.setText((i+1)+". "+toFirstUpper((String)getItem(i)));
+        final ArrayList<String> subTopics = JsondataUtil.getSubTopics((String)((String) getItem(i)).toUpperCase(), activity);
         for (final String subTopic : subTopics) {
             View layout2 = LayoutInflater.from(activity).inflate(R.layout.subchapter_view, subchapterLayout, false);
-            TextView subTopicTitle = layout2.findViewById(R.id.subTopicTitle);
             CheckBox checkBox = layout2.findViewById(R.id.checkBox);
-            subTopicTitle.setText(toFirstUpper(subTopic));
+            checkBox.setText(toFirstUpper(subTopic));
             subchapterLayout.addView(layout2);
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

@@ -39,7 +39,7 @@ public class DataManager {
     public static void PopulateUser(final Context context, final TextView fullName, final RoundedImageView profileImage, String uid) {
 
         String tag_string_req = "get_user_data";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://163.172.172.57:5000/api/usermeta/uid/" + uid,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.MAIN_URL+"/api/usermeta/uid/" + uid,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -54,7 +54,7 @@ public class DataManager {
                             }else{
                                 fullName.setText("Guest User");
                             }
-                            Picasso.with(context).load("http://163.172.172.57:5000/media/"+userData.getString("profilePhoto")).into(profileImage);
+                            Picasso.with(context).load(AppConstants.MAIN_URL+"/media/"+userData.getString("profilePhoto")).into(profileImage);
 
 
 
@@ -77,7 +77,7 @@ public class DataManager {
     public static void populateTotal(final TextView totalQuestion, final String query) {
 
         String tag_string_req = "get_user_data";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://163.172.172.57:5000/api/mcq?limit=1&page=1&" + query,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.MAIN_URL+"/api/mcq?limit=1&page=1&" + query,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -103,7 +103,7 @@ public class DataManager {
     public static void startMCQ(final Activity activity, final String query) {
 
         String tag_string_req = "get_user_data";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://163.172.172.57:5000/api/mcq?limit=1&page=1&" + query,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.MAIN_URL+"/api/mcq?limit=1&page=1&" + query,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

@@ -2,6 +2,7 @@ package com.kandara.medicalapp.Util;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ public class OfflineDownload {
         progressDialog.setCancelable(false);
         progressDialog.setMax(100);
         progressDialog.setProgress(0);
+
         String query = "";
         for (int i = 0; i < selectedSubTopics.size(); i++) {
             if (i != selectedSubTopics.size() - 1) {
@@ -40,14 +42,7 @@ public class OfflineDownload {
         }
 
 
-        String localQuery = "";
-        for (int i = 0; i < selectedSubTopics.size(); i++) {
-            if (i != selectedSubTopics.size() - 1) {
-                localQuery += "subcategory = '" + selectedSubTopics.get(i).toUpperCase() + "' OR ";
-            } else {
-                localQuery += "subcategory = '" + selectedSubTopics.get(i).toUpperCase() + "'";
-            }
-        }
+        String localQuery = getLocalQuery(selectedSubTopics);
         int totalSaved = (int)SugarRecord.count(Study.class, localQuery, null);
         if (totalSaved > 0) {
             Toast.makeText(context, "Content already downloaded", Toast.LENGTH_SHORT).show();
@@ -55,7 +50,7 @@ public class OfflineDownload {
         } else {
             progressDialog.show();
             String tag_string_req = "req_study";
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_STUDY + "?" + query.replaceAll(" ", "%20"),
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_STUDY + "?" + query.replaceAll(" ", "%20")+"&sortBy=questionNumber",
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
@@ -71,55 +66,28 @@ public class OfflineDownload {
                                     Toast.makeText(context, "Content not found", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                                SugarRecord.deleteAll(Study.class);
+                                while(SugarRecord.count(Study.class)!=0) {
+                                    SugarRecord.deleteAll(Study.class);
+                                }
+
                                 for (int i = 0; i < dataArray.length(); i++) {
                                     JSONObject eachDataJsonObject = dataArray.getJSONObject(i);
                                     final Study study = new Study();
                                     study.setId(eachDataJsonObject.getInt("sid"));
                                     study.setStudyId(eachDataJsonObject.getString("_id"));
                                     if (eachDataJsonObject.has("imageUrl")) {
-                                        study.setImageUrl("http://163.172.172.57:5000" + eachDataJsonObject.getString("imageUrl"));
+                                        study.setImageUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
                                     }
                                     study.setSubcategory(eachDataJsonObject.getString("subCategory"));
                                     study.setCategory(eachDataJsonObject.getString("category"));
                                     String question = eachDataJsonObject.getString("question");
-                                    String answer = eachDataJsonObject.getJSONArray("answers").getString(0);
                                     question=HtmlCleaner.cleanThis(question);
+                                    String answer = eachDataJsonObject.getJSONArray("answers").getString(0);
                                     answer = HtmlCleaner.cleanThis(answer);
-                                    study.setQuestion(question.split("::::")[1]);
-                                    study.setQuestionNumber(Integer.parseInt(question.split("::::")[0]));
+                                    study.setQuestion(question);
+                                    study.setQuestionNumber(eachDataJsonObject.getInt("questionNumber"));
                                     study.setAnswer(answer);
-                                    new BGTask(new BGTask.DoInBackground() {
-                                        @Override
-                                        public void DoJob() {
-                                            study.save();
-                                        }
-                                    }, new BGTask.DoPostExecute() {
-                                        @Override
-                                        public void DoJob() {
-                                            String localQuery = "";
-                                            for (int i = 0; i < selectedSubTopics.size(); i++) {
-                                                if (i != selectedSubTopics.size() - 1) {
-                                                    localQuery += "subcategory = '" + selectedSubTopics.get(i).toUpperCase() + "' OR ";
-                                                } else {
-                                                    localQuery += "subcategory = '" + selectedSubTopics.get(i).toUpperCase() + "'";
-                                                }
-                                            }
-                                            int totalSaved = (int)SugarRecord.count(Study.class, localQuery, null);
-
-                                            Log.e("Total Question", total + " ");
-                                            Log.e("Total Saved", totalSaved + " ");
-                                            int percentage = (totalSaved * 100) / total;
-                                            if (percentage >= 100) {
-                                                progressDialog.dismiss();
-                                                Toast.makeText(context, "Content successfully downloaded", Toast.LENGTH_SHORT).show();
-                                                return;
-                                            } else {
-                                                progressDialog.setIndeterminate(false);
-                                                progressDialog.setProgress(percentage);
-                                            }
-                                        }
-                                    }, (AppCompatActivity) context, false).execute();
+                                    saveStudy(total, study, selectedSubTopics, progressDialog, (AppCompatActivity) context);
                                 }
 
                             } catch (JSONException e) {
@@ -135,5 +103,44 @@ public class OfflineDownload {
                     });
             MedicalApplication.getInstance().addToRequestQueue(stringRequest, tag_string_req);
         }
+    }
+
+    private static void saveStudy(final int total, final Study study, final ArrayList<String> selectedSubTopics, final ProgressDialog progressDialog, AppCompatActivity context) {
+        new BGTask(new BGTask.DoInBackground() {
+            @Override
+            public void DoJob() {
+                study.save();
+            }
+        }, new BGTask.DoPostExecute() {
+            @Override
+            public void DoJob() {
+                String localQuery = getLocalQuery(selectedSubTopics);
+                int totalSaved = (int) SugarRecord.count(Study.class, localQuery, null);
+
+                Log.e("Total Question", total + " ");
+                Log.e("Total Saved", totalSaved + " ");
+                int percentage = (totalSaved * 100) / total;
+                if (percentage >= 100) {
+                    progressDialog.dismiss();
+                    return;
+                } else {
+                    progressDialog.setIndeterminate(false);
+                    progressDialog.setProgress(percentage);
+                }
+            }
+        }, context, false).execute();
+    }
+
+    @NonNull
+    private static String getLocalQuery(ArrayList<String> selectedSubTopics) {
+        String localQuery = "";
+        for (int i = 0; i < selectedSubTopics.size(); i++) {
+            if (i != selectedSubTopics.size() - 1) {
+                localQuery += "subcategory = '" + selectedSubTopics.get(i).toUpperCase() + "' OR ";
+            } else {
+                localQuery += "subcategory = '" + selectedSubTopics.get(i).toUpperCase() + "'";
+            }
+        }
+        return localQuery;
     }
 }

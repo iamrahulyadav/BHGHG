@@ -124,12 +124,6 @@
                 android:textSize="16dp" />
         </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/cbIsPremium"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Premium"
-            />
 
 
         <Button

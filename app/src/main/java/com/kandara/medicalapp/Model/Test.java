@@ -8,6 +8,16 @@ import java.util.ArrayList;
 
 public class Test {
 
+    String tid;
+
+    public String getTid() {
+        return tid;
+    }
+
+    public void setTid(String tid) {
+        this.tid = tid;
+    }
+
     int id;
     String name;
     String description;

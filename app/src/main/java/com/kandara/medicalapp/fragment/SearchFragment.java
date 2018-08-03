@@ -26,6 +26,7 @@ import com.kandara.medicalapp.Model.Study;
 import com.kandara.medicalapp.R;
 import com.kandara.medicalapp.Util.AppConstants;
 import com.kandara.medicalapp.Util.BGTask;
+import com.kandara.medicalapp.Util.HtmlCleaner;
 import com.kandara.medicalapp.View.catloadinglibrary.CatLoadingView;
 import com.orm.SugarRecord;
 import com.orm.query.Select;
@@ -94,15 +95,17 @@ public class SearchFragment extends Fragment {
                                 study.setQuestionNumber(i + 1);
                                 study.setStudyId(eachDataJsonObject.getString("_id"));
                                 if (eachDataJsonObject.has("imageUrl")) {
-                                    study.setImageUrl("http://163.172.172.57:5000" + eachDataJsonObject.getString("imageUrl"));
+                                    study.setImageUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
                                 }
                                 study.setSubcategory(eachDataJsonObject.getString("subCategory"));
                                 study.setCategory(eachDataJsonObject.getString("category"));
-                                study.setQuestion(eachDataJsonObject.getString("question"));
-                                JSONArray answersArray = eachDataJsonObject.getJSONArray("answers");
-                                for (int k = 0; k < answersArray.length(); k++) {
-                                    study.setAnswer(answersArray.getString(k));
-                                }
+                                String question = eachDataJsonObject.getString("question");
+                                question=HtmlCleaner.cleanThis(question);
+                                String answer = eachDataJsonObject.getJSONArray("answers").getString(0);
+                                answer = HtmlCleaner.cleanThis(answer);
+                                study.setQuestion(question);
+                                study.setQuestionNumber(eachDataJsonObject.getInt("questionNumber"));
+                                study.setAnswer(answer);
                                 if(!searchItemList.contains(study)) {
                                     searchItemList.add(study);
                                 }

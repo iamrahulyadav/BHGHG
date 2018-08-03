@@ -78,13 +78,12 @@ public class BookStudyAdapter extends BaseAdapter {
         bookmarksBtn = itemView.findViewById(R.id.bookmarkBtn);
         downloadBtn = itemView.findViewById(R.id.downloadBtn);
         mainView = itemView.findViewById(R.id.mainView);
-        topic.setText((i+1)+". "+toFirstUpper((String)getItem(i)));
-        final ArrayList<String> subTopics = JsondataUtil.getSubTopics((String)((String) getItem(i)).toUpperCase(), activity);
+        topic.setText(toFirstUpper((String)getItem(i)));
+        final ArrayList<String> subTopics = JsondataUtil.getSubTopics(((String) getItem(i)).toUpperCase(), activity);
         for (final String subTopic : subTopics) {
             View layout2 = LayoutInflater.from(activity).inflate(R.layout.subchapter_view, subchapterLayout, false);
-            TextView subTopicTitle = layout2.findViewById(R.id.subTopicTitle);
             CheckBox checkBox = layout2.findViewById(R.id.checkBox);
-            subTopicTitle.setText(toFirstUpper(subTopic));
+            checkBox.setText(toFirstUpper(subTopic));
             subchapterLayout.addView(layout2);
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override

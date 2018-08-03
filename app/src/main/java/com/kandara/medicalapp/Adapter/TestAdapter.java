@@ -57,7 +57,7 @@ public class TestAdapter extends BaseAdapter {
             int minutes = (int) ((test.getTestDuration() / (1000 * 60)) % 60);
             tvTitle.setText(test.getName());
             tvDesc.setText(test.getDescription());
-            tvTime.setText("30 Min");
+            tvTime.setText(minutes+" Min");
 
             Button startBtn = cv.findViewById(R.id.startBtn);
 
@@ -65,7 +65,7 @@ public class TestAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View view) {
                     Intent intent=new Intent(activity, TestActivity.class);
-                    intent.putExtra("id", test.getId());
+                    intent.putExtra("tid", test.getTid());
                     activity.startActivity(intent);
                 }
             });

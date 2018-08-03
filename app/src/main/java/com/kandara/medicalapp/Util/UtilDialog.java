@@ -5,9 +5,11 @@ import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.provider.Settings;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.view.View;
 
+import com.kandara.medicalapp.Dialogs.TermsAndAgreementDialog;
 import com.kandara.medicalapp.R;
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
@@ -51,12 +53,21 @@ public class UtilDialog {
 
     public static void showUpgradeDescDialog(final Activity activity){
 
+        TermsAndAgreementDialog termsAndAgreementDialog=new TermsAndAgreementDialog(activity);
+        termsAndAgreementDialog.setActivity((AppCompatActivity) activity);
+        termsAndAgreementDialog.show();
+
+    }
+
+    public static void showActualUpgradeDialog(final Activity activity){
+
         final String deviceId = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
         new LovelyStandardDialog(activity, LovelyStandardDialog.ButtonLayout.VERTICAL)
                 .setTopColorRes(R.color.colorPrimary)
                 .setIcon(R.drawable.prem)
                 .setTitle("Upgrade Plan")
-                .setMessage("Upgrade now to get the most out of this app\n Send Rs. 1000 to this eSewa account \n9816671050. In the transaction message send the following code\n"+deviceId+".\n\n Tap 'Copy to clipboard' button to copy the code and paste it somewhere safe. You need this code to make the transaction successful.")
+                
+                .setMessage("Upgrade now to get the following features\n1. Full content access.\n2. Ability to download the content for offline view.\n3. Search option.\n\nSteps to upgrade\n Copy the following transaction code - "+deviceId+"\nGo to send money inside Esewa and send Rs. 1000 to esewa account 9855065200.\nInside send money menu, go to Remarks and send the message in following pattern \nTransaction code<space>Full Name<space>email id of the user.\nActivation for premium user may take upto 24 hours.\nYou will receive an email after activation.")
                 .setPositiveButton("Copy to Clipboard", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -68,6 +79,7 @@ public class UtilDialog {
                 .setNegativeButton("Cancel", null)
                 .show();
     }
+
 
 
 }

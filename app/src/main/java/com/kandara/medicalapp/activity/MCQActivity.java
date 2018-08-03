@@ -34,6 +34,7 @@ import com.kandara.medicalapp.R;
 import com.kandara.medicalapp.Util.AccountManager;
 import com.kandara.medicalapp.Util.AppConstants;
 import com.kandara.medicalapp.Util.BGTask;
+import com.kandara.medicalapp.Util.OnSwipeTouchListener;
 import com.kandara.medicalapp.Util.UtilDialog;
 import com.kandara.medicalapp.View.catloadinglibrary.CatLoadingView;
 import com.orm.SugarRecord;
@@ -74,6 +75,8 @@ public class MCQActivity extends AppCompatActivity {
     String filterQuery;
     RelativeLayout progressView;
 
+    RelativeLayout mainView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class MCQActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mcq);
         updateToolbarAndStatusBar();
         progressView = findViewById(R.id.mcqProgressView);
+        mainView = findViewById(R.id.mainView);
         mcqAttempts = new ArrayList<>();
 
         if (getIntent().hasExtra("questionNumber")) {
@@ -95,6 +99,38 @@ public class MCQActivity extends AppCompatActivity {
         tvOptionB = findViewById(R.id.tvOptionB);
         tvOptionC = findViewById(R.id.tvOptionC);
         tvOptionD = findViewById(R.id.tvOptionD);
+
+        mainView.setOnTouchListener(new OnSwipeTouchListener(MCQActivity.this) {
+            public void onSwipeTop() {
+            }
+
+            public void onSwipeRight() {
+                if (currentQuestionNumber > 0) {
+                    currentQuestionNumber--;
+                    getMCQ();
+                }
+                toggleLeftRightIcon();
+            }
+
+            public void onSwipeLeft() {
+
+
+
+                if (currentQuestionNumber >= (AppConstants.FREE_USERS_DATA_LIMIT - 1) && !AccountManager.isUserPremium(getApplicationContext())) {
+                    UtilDialog.showLimitReachedDialog(MCQActivity.this);
+                } else {
+                    if (currentQuestionNumber < totalQuestionNumber - 1) {
+                        currentQuestionNumber++;
+                        getMCQ();
+                    }
+                    toggleLeftRightIcon();
+                }
+            }
+
+            public void onSwipeBottom() {
+            }
+
+        });
 
         btnMoreInfo = findViewById(R.id.btnMoreInfo);
         btnAddToRevision = findViewById(R.id.btnAddtoRevision);
@@ -124,7 +160,7 @@ public class MCQActivity extends AppCompatActivity {
             public void onClick(View view) {
                 progressView.setVisibility(View.VISIBLE);
                 String tag_string_req = "get_user_data";
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://163.172.172.57:5000/api/mcq?fields=_id,mid&" + filterQuery,
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.MAIN_URL+"/api/mcq?fields=_id,mid&" + filterQuery,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -151,7 +187,7 @@ public class MCQActivity extends AppCompatActivity {
                                         @Override
                                         public void QuestionSelected(int questionNumber) {
                                             currentQuestionNumber = questionNumber - 1;
-                                            if(currentQuestionNumber>=(AppConstants.FREE_USERS_DATA_LIMIT-1) && !AccountManager.isUserPremium(getApplicationContext())) {
+                                            if (currentQuestionNumber >= (AppConstants.FREE_USERS_DATA_LIMIT - 1) && !AccountManager.isUserPremium(getApplicationContext())) {
                                                 UtilDialog.showLimitReachedDialog(MCQActivity.this);
                                             } else {
                                                 getMCQ();
@@ -248,13 +284,13 @@ public class MCQActivity extends AppCompatActivity {
 
                 if (Select.from(MCQRevision.class).where(Condition.prop("question_id").eq(currentMCQ.getMcqId())).count() != 0) {
 
-                    SugarRecord.deleteAll(MCQRevision.class, "question_id='"+revision.getQuestionId()+"'");
+                    SugarRecord.deleteAll(MCQRevision.class, "question_id='" + revision.getQuestionId() + "'");
                     btnAddToRevision.setImageResource(R.drawable.ic_add_to_revision);
                     Toast.makeText(getApplicationContext(), "Removed from revision", Toast.LENGTH_SHORT).show();
                 } else {
                     revision.save();
                     btnAddToRevision.setImageResource(R.drawable.ic_remove_from_revision);
-                    Toast.makeText(getApplicationContext(), "Added to MCQRevision", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Added to MCQ Revision", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -398,7 +434,7 @@ public class MCQActivity extends AppCompatActivity {
         navRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(currentQuestionNumber>=(AppConstants.FREE_USERS_DATA_LIMIT-1) && !AccountManager.isUserPremium(getApplicationContext())) {
+                if (currentQuestionNumber >= (AppConstants.FREE_USERS_DATA_LIMIT - 1) && !AccountManager.isUserPremium(getApplicationContext())) {
                     UtilDialog.showLimitReachedDialog(MCQActivity.this);
                 } else {
                     if (currentQuestionNumber < totalQuestionNumber - 1) {
@@ -447,7 +483,7 @@ public class MCQActivity extends AppCompatActivity {
         Log.e("IDDDD", mcqId + "");
         progressView.setVisibility(View.VISIBLE);
         String tag_string_req = "get_user_data";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://163.172.172.57:5000/api/mcq?limit=1&page=1&_id=" + mcqId,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.MAIN_URL+"/api/mcq?limit=1&page=1&_id=" + mcqId,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -464,13 +500,13 @@ public class MCQActivity extends AppCompatActivity {
                                 mcq.setMcqId(eachDataJsonObject.getString("_id"));
                                 mcq.setQuestionNumber(i + 1);
                                 if (eachDataJsonObject.has("imageUrl")) {
-                                    mcq.setPhotoUrl("http://163.172.172.57:5000" + eachDataJsonObject.getString("imageUrl"));
+                                    mcq.setPhotoUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
                                 }
                                 mcq.setRightAnswerDesc(eachDataJsonObject.getString("rightAnswerDesc"));
                                 mcq.setRightAnswer(eachDataJsonObject.getString("rightAnswer"));
                                 mcq.setCat(eachDataJsonObject.getString("category"));
                                 mcq.setQuestion(eachDataJsonObject.getString("question"));
-                                mcq.setYear(Integer.parseInt(eachDataJsonObject.getString("subCategory").split("SSEPPE")[1]));
+                                mcq.setYear(eachDataJsonObject.getString("subCategory").split("SSEPPE")[1]);
                                 mcq.setBoard(eachDataJsonObject.getString("subCategory").split("SSEPPE")[0]);
                                 JSONArray wrongAnswerArray = eachDataJsonObject.getJSONArray("wrongAnswers");
                                 mcq.setWrongAnswer1(wrongAnswerArray.getString(0));
@@ -500,7 +536,7 @@ public class MCQActivity extends AppCompatActivity {
 
         progressView.setVisibility(View.VISIBLE);
         String tag_string_req = "get_user_data";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://163.172.172.57:5000/api/mcq?limit=1&page=" + (currentQuestionNumber + 1) + "&" + filterQuery.replaceAll(" ", "%20"),
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.MAIN_URL+"/api/mcq?limit=1&page=" + (currentQuestionNumber + 1) + "&" + filterQuery.replaceAll(" ", "%20"),
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -519,13 +555,13 @@ public class MCQActivity extends AppCompatActivity {
                                 mcq.setMcqId(eachDataJsonObject.getString("_id"));
                                 mcq.setQuestionNumber(i + 1);
                                 if (eachDataJsonObject.has("imageUrl")) {
-                                    mcq.setPhotoUrl("http://163.172.172.57:5000" + eachDataJsonObject.getString("imageUrl"));
+                                    mcq.setPhotoUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
                                 }
                                 mcq.setRightAnswerDesc(eachDataJsonObject.getString("rightAnswerDesc"));
                                 mcq.setRightAnswer(eachDataJsonObject.getString("rightAnswer"));
                                 mcq.setCat(eachDataJsonObject.getString("category"));
                                 mcq.setQuestion(eachDataJsonObject.getString("question"));
-                                mcq.setYear(Integer.parseInt(eachDataJsonObject.getString("subCategory").split("SSEPPE")[1]));
+                                mcq.setYear(eachDataJsonObject.getString("subCategory").split("SSEPPE")[1]);
                                 mcq.setBoard(eachDataJsonObject.getString("subCategory").split("SSEPPE")[0]);
                                 JSONArray wrongAnswerArray = eachDataJsonObject.getJSONArray("wrongAnswers");
                                 mcq.setWrongAnswer1(wrongAnswerArray.getString(0));

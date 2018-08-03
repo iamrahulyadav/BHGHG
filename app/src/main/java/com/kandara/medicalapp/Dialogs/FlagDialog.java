@@ -100,7 +100,7 @@ public class FlagDialog extends Dialog {
             Log.e("Error", e.getMessage());
         }
         String tag_string_req = "post_feedback";
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, "http://163.172.172.57:5000/api/feedback", params, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.MAIN_URL+"/api/feedback", params, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.e("Photo Post Reponse", response.toString());

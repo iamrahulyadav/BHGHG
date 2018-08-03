@@ -79,7 +79,7 @@
                 android:id="@+id/startBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:background="@drawable/bg_test_start_disabled"
+                android:background="@drawable/bg_test_start_enabled"
                 android:text="Start"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white" />
@@ -106,6 +106,20 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="10dp">
 
+
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/btnGrid"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentLeft="true"
+                android:layout_margin="@dimen/cardStandardPadding"
+                android:padding="3dp"
+                android:tint="@color/colorDarkGray"
+                app:srcCompat="@drawable/ic_gridview"
+                tools:ignore="VectorDrawableCompat" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -116,51 +130,6 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <LinearLayout
-                        android:id="@+id/btnAddtoRevision"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_discussion_top_left"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="7dp">
-
-                        <TextView
-                            android:id="@+id/tvAddTorevision"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Revision +"
-                            android:textColor="@color/colorDarkGray" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/btnMoreInfo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@drawable/bg_discussion_top_right"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:padding="7dp">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="More Info"
-                            android:textColor="@color/colorDarkGray" />
-                    </LinearLayout>
-
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -279,7 +248,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
             android:gravity="center_vertical|right"
             android:layout_alignParentRight="true"
@@ -435,6 +404,25 @@
 
 
         </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/progressView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#CCFFFFFF">
+
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="20dp"
+            android:indeterminateDrawable="@drawable/progress" />
 
     </RelativeLayout>
 

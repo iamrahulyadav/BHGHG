@@ -46,6 +46,7 @@ import com.kandara.medicalapp.Util.AccountManager;
 import com.kandara.medicalapp.Util.AppConstants;
 import com.kandara.medicalapp.Util.BGTask;
 import com.kandara.medicalapp.Util.HtmlCleaner;
+import com.kandara.medicalapp.Util.OnSwipeTouchListener;
 import com.kandara.medicalapp.Util.UtilDialog;
 import com.kandara.medicalapp.View.catloadinglibrary.CatLoadingView;
 import com.orm.SugarRecord;
@@ -68,7 +69,6 @@ public class FlashCardActivity extends AppCompatActivity {
     AppCompatImageView btnExit;
     AppCompatImageView btnGrid;
     AppCompatImageView navLeft, navRight, addToRevision, icMoreInfo;
-    RelativeLayout mainView;
     int currentQuestionNumber = 0;
     int totalQuestionNumbers = 0;
 
@@ -87,12 +87,47 @@ public class FlashCardActivity extends AppCompatActivity {
 
     RelativeLayout progressView;
 
+    RelativeLayout mainView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flash_card);
         progressView = findViewById(R.id.mcqProgressView);
+        mainView = findViewById(R.id.mainView);
+
+
+        mainView.setOnTouchListener(new OnSwipeTouchListener(FlashCardActivity.this) {
+            public void onSwipeTop() {
+            }
+
+            public void onSwipeRight() {
+                if (currentQuestionNumber > 0) {
+                    currentQuestionNumber--;
+                    getData();
+                }
+                toggleLeftRightIcon();
+            }
+
+            public void onSwipeLeft() {
+
+
+                if (currentQuestionNumber >= (AppConstants.FREE_USERS_DATA_LIMIT - 1) && !AccountManager.isUserPremium(getApplicationContext())) {
+                    UtilDialog.showLimitReachedDialog(FlashCardActivity.this);
+                } else {
+                    if (currentQuestionNumber < totalQuestionNumbers - 1) {
+                        currentQuestionNumber++;
+                        getData();
+                    }
+                    toggleLeftRightIcon();
+                }
+            }
+
+            public void onSwipeBottom() {
+            }
+
+        });
+
         icMoreInfo = findViewById(R.id.icMoreInfo);
         selectedSubTopics = getIntent().getStringArrayListExtra("subTopics");
         icMoreInfo.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +180,7 @@ public class FlashCardActivity extends AppCompatActivity {
                 }
                 progressView.setVisibility(View.VISIBLE);
                 String tag_string_req = "req_study";
-                StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_STUDY + "?fields=_id,sid&" + query.replaceAll(" ", "%20"),
+                StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_STUDY + "?fields=_id,sid&" + query.replaceAll(" ", "%20")+"&sortBy=questionNumber",
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
@@ -227,7 +262,7 @@ public class FlashCardActivity extends AppCompatActivity {
         Log.e("IDDDD", studyId + "");
         progressView.setVisibility(View.VISIBLE);
         String tag_string_req = "get_user_data";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://163.172.172.57:5000/api/study?limit=1&page=1&_id=" + studyId,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.MAIN_URL+"/api/study?limit=1&page=1&_id=" + studyId,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -242,16 +277,16 @@ public class FlashCardActivity extends AppCompatActivity {
                                 study.setId(eachDataJsonObject.getInt("sid"));
                                 study.setStudyId(eachDataJsonObject.getString("_id"));
                                 if (eachDataJsonObject.has("imageUrl")) {
-                                    study.setImageUrl("http://163.172.172.57:5000" + eachDataJsonObject.getString("imageUrl"));
+                                    study.setImageUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
                                 }
                                 study.setSubcategory(eachDataJsonObject.getString("subCategory"));
                                 study.setCategory(eachDataJsonObject.getString("category"));
                                 String question = eachDataJsonObject.getString("question");
-
-
+                                question=HtmlCleaner.cleanThis(question);
                                 String answer = eachDataJsonObject.getJSONArray("answers").getString(0);
-                                study.setQuestion(question.split("::::")[1]);
-                                study.setQuestionNumber(Integer.parseInt(question.split("::::")[0]));
+                                answer = HtmlCleaner.cleanThis(answer);
+                                study.setQuestion(question);
+                                study.setQuestionNumber(eachDataJsonObject.getInt("questionNumber"));
                                 study.setAnswer(answer);
                                 currentStudy = study;
                                 handleAfterData();
@@ -284,7 +319,7 @@ public class FlashCardActivity extends AppCompatActivity {
         }
         progressView.setVisibility(View.VISIBLE);
         String tag_string_req = "req_study";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_STUDY + "?limit=1&page=" + (currentQuestionNumber + 1) + "&" + query.replaceAll(" ", "%20"),
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_STUDY + "?limit=1&page=" + (currentQuestionNumber + 1) + "&" + query.replaceAll(" ", "%20")+"&sortBy=questionNumber",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -300,18 +335,16 @@ public class FlashCardActivity extends AppCompatActivity {
                                 study.setId(eachDataJsonObject.getInt("sid"));
                                 study.setStudyId(eachDataJsonObject.getString("_id"));
                                 if (eachDataJsonObject.has("imageUrl")) {
-                                    study.setImageUrl("http://163.172.172.57:5000" + eachDataJsonObject.getString("imageUrl"));
+                                    study.setImageUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
                                 }
                                 study.setSubcategory(eachDataJsonObject.getString("subCategory"));
                                 study.setCategory(eachDataJsonObject.getString("category"));
                                 String question = eachDataJsonObject.getString("question");
-
                                 question=HtmlCleaner.cleanThis(question);
-
                                 String answer = eachDataJsonObject.getJSONArray("answers").getString(0);
                                 answer = HtmlCleaner.cleanThis(answer);
-                                study.setQuestion(question.split("::::")[1]);
-                                study.setQuestionNumber(Integer.parseInt(question.split("::::")[0]));
+                                study.setQuestion(question);
+                                study.setQuestionNumber(eachDataJsonObject.getInt("questionNumber"));
                                 study.setAnswer(answer);
                                 currentStudy = study;
                                 handleAfterData();
@@ -339,6 +372,8 @@ public class FlashCardActivity extends AppCompatActivity {
         } else {
             addToRevision.setImageResource(R.drawable.ic_add_to_revision);
         }
+        image.setVisibility(View.GONE);
+        image.setImageResource(0);
         final StudyRevision revision = new StudyRevision();
         revision.setQuestionId(study.getStudyId());
         revision.setId(study.getId());
@@ -354,7 +389,7 @@ public class FlashCardActivity extends AppCompatActivity {
                 } else {
                     revision.save();
                     addToRevision.setImageResource(R.drawable.ic_remove_from_revision);
-                    Toast.makeText(getApplicationContext(), "Added to MCQRevision", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Added to MCQ Revision", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -419,7 +454,8 @@ public class FlashCardActivity extends AppCompatActivity {
         navRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentQuestionNumber >= (AppConstants.FREE_USERS_DATA_LIMIT - 1)) {
+
+                if (currentQuestionNumber >= (AppConstants.FREE_USERS_DATA_LIMIT - 1) && !AccountManager.isUserPremium(getApplicationContext())) {
                     UtilDialog.showLimitReachedDialog(FlashCardActivity.this);
                 } else {
                     if (currentQuestionNumber < totalQuestionNumbers - 1) {

@@ -75,7 +75,6 @@ public class MyProfilefragment extends Fragment {
     RoundedImageView imgProfile;
     EditText firstNameField, lastNameField, emailField;
     Button saveProfileBtn;
-    CheckBox cbIsPremium;
 
     CatLoadingView mView;
 
@@ -95,7 +94,6 @@ public class MyProfilefragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_my_profilefragment, container, false);
         mView = new CatLoadingView();
         imgProfile = view.findViewById(R.id.img_profile);
-        cbIsPremium = view.findViewById(R.id.cbIsPremium);
         firstNameField = view.findViewById(R.id.firstNameField);
         lastNameField = view.findViewById(R.id.lastNameField);
         emailField = view.findViewById(R.id.emailField);
@@ -108,9 +106,6 @@ public class MyProfilefragment extends Fragment {
         if (!AccountManager.getLastName(getContext()).isEmpty()) {
             lastNameField.setText(AccountManager.getLastName(getContext()));
         }
-
-        cbIsPremium.setChecked(AccountManager.isUserPremium(getActivity()));
-
 
         if (!AccountManager.getEmail(getContext()).isEmpty()) {
             emailField.setText(AccountManager.getEmail(getContext()));
@@ -143,7 +138,6 @@ public class MyProfilefragment extends Fragment {
                     AccountManager.setFirstName(getActivity(), firstNameField.getText().toString());
                     AccountManager.setLastName(getActivity(), lastNameField.getText().toString());
                     AccountManager.setEmail(getActivity(), emailField.getText().toString());
-                    AccountManager.setIsPremium(getActivity(), cbIsPremium.isChecked());
                     saveProfile(firstNameField.getText().toString(), lastNameField.getText().toString(), emailField.getText().toString());
                 }
             }
@@ -275,7 +269,7 @@ public class MyProfilefragment extends Fragment {
                 JSONObject jsonObject = new JSONObject(result);
                 JSONObject fileObject = jsonObject.getJSONObject("file");
                 final String filename = fileObject.getString("filename");
-                AccountManager.setPhotoUrl(getActivity(), "http://163.172.172.57:5000/media/" + filename);
+                AccountManager.setPhotoUrl(getActivity(), AppConstants.MAIN_URL+"/media/" + filename);
 
                 try {
                     Picasso.with(getActivity()).load(AccountManager.getUserPhotourl(getActivity())).into(imgProfile);
@@ -357,7 +351,6 @@ public class MyProfilefragment extends Fragment {
             params.put("firstname", firstname);
             params.put("lastname", lastname);
             params.put("email", email);
-            params.put("isPremium", cbIsPremium.isChecked());
         } catch (JSONException e) {
             Log.e("Error", e.getMessage());
         }

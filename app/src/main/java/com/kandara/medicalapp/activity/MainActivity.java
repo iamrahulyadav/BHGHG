@@ -58,9 +58,11 @@ import com.kandara.medicalapp.Util.NavDrawerAdapter;
 import com.kandara.medicalapp.Util.UtilDialog;
 import com.kandara.medicalapp.View.catloadinglibrary.CatLoadingView;
 import com.kandara.medicalapp.View.roundedimageview.RoundedImageView;
+import com.kandara.medicalapp.fragment.AboutUsFragment;
 import com.kandara.medicalapp.fragment.ContributionFragment;
 import com.kandara.medicalapp.fragment.DiscussionFragment;
 import com.kandara.medicalapp.fragment.DownloadFragment;
+import com.kandara.medicalapp.fragment.FAQFragment;
 import com.kandara.medicalapp.fragment.HomeFragment;
 import com.kandara.medicalapp.fragment.SearchFragment;
 import com.kandara.medicalapp.fragment.LeaderboardFragment;
@@ -106,6 +108,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_REVISION = "MCQRevision";
     private static final String TAG_MY_PROFILE = "My Profile";
     private static final String TAG_DISCUSSION = "Discussion";
+    private static final String TAG_DOWNLOADS = "Downloads";
+    private static final String TAG_FAQ = "FAQ";
+    private static final String TAG_ABOUT_US= "About Us";
     public static String CURRENT_TAG = TAG_HOME;
     private Handler mHandler;
     private User currentUser;
@@ -118,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isSearchBar = true;
     ListView listView;
     NavDrawerAdapter navDrawerAdapter;
-    String navs[] = {"Home", "Read Book", "Online Test", "Past Questions", "Revision", "My Profile", "Discussion", "Downloads"};
+    String navs[] = {"Home", "Read Book", "Online Test", "Past Questions", "Revision", "My Profile", "Discussion", "Downloads", "FAQ", "About Us"};
 
     CatLoadingView mView;
     private int SELECT_PHOTO = 233;
@@ -208,7 +213,7 @@ public class MainActivity extends AppCompatActivity {
     }
     private void RetrieveUserData(final String userId, final String token) {
         String tag_string_req = "req_register";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://163.172.172.57:5000/api/usermeta/uid/" + userId,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.MAIN_URL+"/api/usermeta/uid/" + userId,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -221,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                             if (userData.has("profilePhoto")) {
-                                AccountManager.setPhotoUrl(getApplicationContext(), "http://163.172.172.57:5000/media/" + userData.getString("profilePhoto"));
+                                AccountManager.setPhotoUrl(getApplicationContext(), AppConstants.MAIN_URL+"/media/" + userData.getString("profilePhoto"));
                             }
                             if (userData.has("lastname")) {
                                 AccountManager.setLastName(getApplicationContext(), userData.getString("lastname"));
@@ -307,8 +312,24 @@ public class MainActivity extends AppCompatActivity {
                 navItemIndex = 7;
                 isSearchBar = false;
                 updateToolbarAndStatusBar("Downloads");
-                CURRENT_TAG = TAG_DISCUSSION;
+                CURRENT_TAG = TAG_DOWNLOADS;
                 break;
+
+
+            case 8:
+                navItemIndex = 8;
+                isSearchBar = false;
+                updateToolbarAndStatusBar("FAQ");
+                CURRENT_TAG = TAG_FAQ;
+                break;
+
+            case 9:
+                navItemIndex = 9;
+                isSearchBar = false;
+                updateToolbarAndStatusBar("About Us");
+                CURRENT_TAG = TAG_ABOUT_US;
+                break;
+
             default:
                 navItemIndex = 0;
         }
@@ -393,6 +414,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void loadSearchFragment(final String searchTxt) {
+
+        navItemIndex = 199;
         navDrawerAdapter.setSelected(navItemIndex);
         Runnable mPendingRunnable = new Runnable() {
             @Override
@@ -472,6 +495,15 @@ public class MainActivity extends AppCompatActivity {
             case 7:
                 DownloadFragment downloadFragment=new DownloadFragment();
                 return downloadFragment;
+
+
+            case 8:
+                FAQFragment faqFragment=new FAQFragment();
+                return faqFragment;
+
+            case 9:
+                AboutUsFragment aboutUsFragment=new AboutUsFragment();
+                return aboutUsFragment;
 
             default:
                 return new HomeFragment();
@@ -607,7 +639,7 @@ public class MainActivity extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(result);
                 JSONObject fileObject = jsonObject.getJSONObject("file");
                 final String filename = fileObject.getString("filename");
-                AccountManager.setPhotoUrl(MainActivity.this, "http://163.172.172.57:5000/media/" + filename);
+                AccountManager.setPhotoUrl(MainActivity.this, AppConstants.MAIN_URL+"/media/" + filename);
 
                 try {
                     Picasso.with(MainActivity.this).load(AccountManager.getUserPhotourl(MainActivity.this)).into(imgProfile);

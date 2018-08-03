@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:padding="11dp"
+            android:textSize="16dp"
+            android:background="@color/colorPrimary"
+            android:text="Terms and Condition" />
+
+        <WebView
+            android:id="@+id/wvterms"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+
+            >
+
+
+        </WebView>
+
+        <CheckBox
+            android:id="@+id/cbAgree"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/checkBoxStyle"
+            android:textColor="@color/colorDarkGray"
+            android:text="I have read and agreed to the terms and conditions"
+            />
+
+        <Button
+            android:id="@+id/btnProceed"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/colorPrimary"
+            android:text="Proceed"
+            android:textColor="@color/colorWhite" />
+
+    </LinearLayout>
+
+</RelativeLayout>

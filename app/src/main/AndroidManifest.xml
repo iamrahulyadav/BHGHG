@@ -54,6 +54,7 @@
             android:name=".activity.OfflineStudyModeActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+
         <activity
             android:name=".activity.OfflineFlashCardActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -71,6 +72,7 @@
 
         </activity>
         <activity android:name=".activity.SplashActivity">
+
 
 
 

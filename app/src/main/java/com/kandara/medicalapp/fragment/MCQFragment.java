@@ -16,6 +16,7 @@ import com.kandara.medicalapp.Model.Filter;
 import com.kandara.medicalapp.Model.YearItem;
 import com.kandara.medicalapp.R;
 import com.kandara.medicalapp.Util.DataManager;
+import com.kandara.medicalapp.Util.JsondataUtil;
 import com.kandara.medicalapp.View.FilterView;
 
 import java.util.ArrayList;
@@ -64,8 +65,67 @@ public class MCQFragment extends Fragment {
         for (ChapterItem chapterItem : filter.getChapterItemArrayList()) {
             filterCats.add(chapterItem.getChaptername().toUpperCase());
         }
+        ArrayList<BoardItem> boardItems = filter.getSelectedUnivs();
+        ArrayList<String> boardYearQueryList = new ArrayList<>();
+        for (BoardItem boardItem : boardItems) {
+            if(!boardItem.getBoardName().equalsIgnoreCase("All")) {
+                boardYearQueryList.add(boardItem.getBoardName().replaceFirst(" ", "SSEPPE").replace(" ", "%20"));
+            }else{
+                boardYearQueryList.add(boardItem.getBoardName().toUpperCase());
+            }
+        }
         if (filterCats.contains("ALL")) {
-            return "";
+
+            ArrayList<String> topics=JsondataUtil.getStudyTopics(getContext());
+            String catFilterQuery = "";
+            for (int i = 0; i < topics.size(); i++) {
+                if (i != filter.getChapterItemArrayList().size() - 1) {
+                    catFilterQuery += "category=" + topics.get(i).toUpperCase() + "&";
+                } else {
+                    catFilterQuery += "category=" + topics.get(i).toUpperCase() + "";
+                }
+            }
+            return catFilterQuery;
+        }
+
+
+        if (boardYearQueryList.contains("ALL")) {
+
+            ArrayList<String> boards=new ArrayList<>();
+            boards.add("BPKIHS 72");
+            boards.add("BPKIHS 2073");
+            boards.add("BPKIHS 2074");
+            boards.add("IOM 2070");
+            boards.add("IOM 2071");
+            boards.add("IOM 2072");
+            boards.add("IOM 2074 (A) ");
+            boards.add("IOM 2074 (B)");
+            boards.add("KU 2070");
+            boards.add("KU 2071");
+            boards.add("KU 2072");
+            boards.add("KU 2073");
+            boards.add("KU 2074");
+            boards.add("NAMS 2070");
+            boards.add("NAMS 2071");
+            boards.add("NAMS 2072");
+            boards.add("NAMS 2073");
+            boards.add("NAMS 2074");
+            boards.add("PSC 2070 (A)");
+            boards.add("PSC 2070 (B)");
+            boards.add("PSC 2071 (A)");
+            boards.add("PSC 2071(B)");
+            boards.add("PSC 2072");
+            boards.add("PSC 2073 (A)");
+            boards.add("PSC 2073 (B)");
+            String boardFilterQuery = "";
+            for (int i = 0; i < boards.size(); i++) {
+                if (i != boards.size() - 1) {
+                    boardFilterQuery += "subCategory=" + boards.get(i) .replaceFirst(" ", "SSEPPE")+ "&";
+                } else {
+                    boardFilterQuery += "subCategory=" + boards.get(i) .replaceFirst(" ", "SSEPPE");
+                }
+            }
+            return boardFilterQuery;
         }
         String catFilterQuery = "";
         String boardFilterQuery = "";
@@ -75,11 +135,6 @@ public class MCQFragment extends Fragment {
             } else {
                 catFilterQuery += "category=" + filter.getChapterItemArrayList().get(i).getChaptername().toUpperCase() + "";
             }
-        }
-        ArrayList<BoardItem> boardItems = filter.getSelectedUnivs();
-        ArrayList<String> boardYearQueryList = new ArrayList<>();
-        for (BoardItem boardItem : boardItems) {
-            boardYearQueryList.add(boardItem.getBoardName().replace(" ", "SSEPPE"));
         }
         for (int i = 0; i < boardYearQueryList.size(); i++) {
             if (i != boardYearQueryList.size() - 1) {

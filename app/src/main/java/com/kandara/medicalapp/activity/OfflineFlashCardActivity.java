@@ -34,7 +34,11 @@ import com.kandara.medicalapp.Model.MCQRevision;
 import com.kandara.medicalapp.Model.Study;
 import com.kandara.medicalapp.Model.StudyRevision;
 import com.kandara.medicalapp.R;
+import com.kandara.medicalapp.Util.AccountManager;
+import com.kandara.medicalapp.Util.AppConstants;
 import com.kandara.medicalapp.Util.BGTask;
+import com.kandara.medicalapp.Util.OnSwipeTouchListener;
+import com.kandara.medicalapp.Util.UtilDialog;
 import com.kandara.medicalapp.View.catloadinglibrary.CatLoadingView;
 import com.orm.SugarRecord;
 import com.orm.query.Condition;
@@ -90,6 +94,33 @@ public class OfflineFlashCardActivity extends AppCompatActivity {
         studyArrayList = new ArrayList<>();
         updateToolbarAndStatusBar();
         mainView = findViewById(R.id.mainView);
+
+        mainView.setOnTouchListener(new OnSwipeTouchListener(OfflineFlashCardActivity.this) {
+            public void onSwipeTop() {
+            }
+
+            public void onSwipeRight() {
+                if (currentQuestionNumber > 1) {
+                    currentQuestionNumber--;
+                    Study currentStudy = studyArrayList.get(currentQuestionNumber - 1);
+                    populateView(currentStudy);
+                }
+                toggleLeftRightIcon();
+            }
+
+            public void onSwipeLeft() {
+                if (currentQuestionNumber < studyArrayList.size()) {
+                    currentQuestionNumber++;
+                    Study currentStudy = studyArrayList.get(currentQuestionNumber - 1);
+                    populateView(currentStudy);
+                }
+                toggleLeftRightIcon();
+            }
+
+            public void onSwipeBottom() {
+            }
+
+        });
         btnExit = findViewById(R.id.btnExit);
         btnExit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,11 +208,14 @@ public class OfflineFlashCardActivity extends AppCompatActivity {
 
     public void populateView(final Study study) {
         wvAnswer.setVisibility(View.GONE);
+        image.setVisibility(View.GONE);
         if (Select.from(StudyRevision.class).where(Condition.prop("id").eq(study.getId())).count() != 0) {
             addToRevision.setImageResource(R.drawable.ic_remove_from_revision);
         } else {
             addToRevision.setImageResource(R.drawable.ic_add_to_revision);
         }
+        image.setVisibility(View.GONE);
+        image.setImageResource(0);
         final StudyRevision revision = new StudyRevision();
         revision.setQuestionId(study.getStudyId());
         revision.setId(study.getId());
@@ -196,7 +230,7 @@ public class OfflineFlashCardActivity extends AppCompatActivity {
                 } else {
                     revision.save();
                     addToRevision.setImageResource(R.drawable.ic_remove_from_revision);
-                    Toast.makeText(getApplicationContext(), "Added to MCQRevision", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Added to MCQ Revision", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -69,7 +69,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Study Topics"
+                android:text="Read Book"
                 android:textColor="@color/colorDarkDarkGray" />
 
 
@@ -165,7 +165,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Ask Something you dont know about any topic in discussion. YOu can also answer questions you know about in discussion. Its an awesome way to share ideas"
+                android:text="Ask something you don't know to your friends. You can also answer your friends queries. Learing will be interactive with Smart PG."
                 android:textColor="@color/colorDarkGray" />
 
 

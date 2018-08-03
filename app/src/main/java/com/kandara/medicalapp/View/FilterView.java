@@ -161,7 +161,33 @@ public class FilterView extends RelativeLayout {
 
 
         ArrayList<BoardItem> adapterItemArrayList=new ArrayList<>();
-        String boards[]={"BPKIHS 2015", "BPKIHS 2016", "BPKIHS 2017", "IOM 2007", "IOM 2009", "IOM 2010", "IOM 2011", "IOM 2012", "IOM 2013", "IOM 2014", "IOM 2015", "IOM 2016", "IOM 2017", "KU 2009","KU 2010", "KU 2011", "KU 2012", "KU 2013", "KU 2014", "KU 2015", "KU 2016", "KU 2017", "NAMS 2009", "NAMS 2010", "NAMS 2011", "NAMS 2012", "NAMS 2013", "NAMS 2014", "NAMS 2015", "NAMS 2016", "NAMS 2017", "PSC 2005", "PSC 2008", "PSC 2011", "PSC 2012", "PSC 2013", "PSC 2014", "PSC 2015", "PSC 2016", "PSC 2017"};
+        ArrayList<String> boards=new ArrayList<>();
+        boards.add("ALL");
+        boards.add("BPKIHS 72");
+        boards.add("BPKIHS 2073");
+        boards.add("BPKIHS 2074");
+        boards.add("IOM 2070");
+        boards.add("IOM 2071");
+        boards.add("IOM 2072");
+        boards.add("IOM 2074 (A) ");
+        boards.add("IOM 2074 (B)");
+        boards.add("KU 2070");
+        boards.add("KU 2071");
+        boards.add("KU 2072");
+        boards.add("KU 2073");
+        boards.add("KU 2074");
+        boards.add("NAMS 2070");
+        boards.add("NAMS 2071");
+        boards.add("NAMS 2072");
+        boards.add("NAMS 2073");
+        boards.add("NAMS 2074");
+        boards.add("PSC 2070 (A)");
+        boards.add("PSC 2070 (B)");
+        boards.add("PSC 2071 (A)");
+        boards.add("PSC 2071(B)");
+        boards.add("PSC 2072");
+        boards.add("PSC 2073 (A)");
+        boards.add("PSC 2073 (B)");
         for(String board:boards){
             BoardItem boardItem=new BoardItem();
             boardItem.setChecked(false);

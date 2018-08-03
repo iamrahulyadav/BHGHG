@@ -2,6 +2,7 @@ package com.kandara.medicalapp.fragment;
 
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,8 @@ import com.kandara.medicalapp.activity.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +44,12 @@ public class HomeFragment extends Fragment {
     Button btnUpgrade;
     Button btnDiscussion;
     Button btnExploreMCQ;
+
+
+    int currentPage = 0;
+    Timer timer;
+    final long DELAY_MS = 500;//delay in milliseconds before task is to be executed
+    final long PERIOD_MS = 3000;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -77,6 +86,25 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == 4) {
+                    currentPage = 0;
+                }
+                topicsViewPager.setCurrentItem(currentPage++, true);
+            }
+        };
+
+        timer = new Timer(); // This will create a new Thread
+        timer .schedule(new TimerTask() { // task to be scheduled
+
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, DELAY_MS, PERIOD_MS);
         dotsIndicator.setViewPager(topicsViewPager);
         btnExploreButton.setOnClickListener(new View.OnClickListener() {
             @Override

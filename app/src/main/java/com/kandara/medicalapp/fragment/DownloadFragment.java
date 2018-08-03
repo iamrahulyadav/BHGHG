@@ -40,19 +40,11 @@ public class DownloadFragment extends Fragment {
         ArrayList<String> studyTopics=JsondataUtil.getStudyTopics(getActivity());
         ArrayList<String> downloadStudyTopics=new ArrayList<>();
         for(String topic:studyTopics){
-
-            final ArrayList<String> subTopics = JsondataUtil.getSubTopics(topic, getContext());
-            String localQuery = "";
-            for (int k = 0; k < subTopics.size(); k++) {
-                if (k != subTopics.size() - 1) {
-                    localQuery += "subcategory = '" + subTopics.get(k).toUpperCase() + "' OR ";
-                } else {
-                    localQuery += "subcategory = '" + subTopics.get(k).toUpperCase() + "'";
-                }
-            }
-            int totalSaved = (int) SugarRecord.count(Study.class, localQuery, null);
+            String query="category = '"+topic.toUpperCase()+"'";
+            int totalSaved = (int) SugarRecord.count(Study.class, query, null);
             if (totalSaved != 0) {
                 downloadStudyTopics.add(topic);
+                break;
             }
         }
         OfflineBookStudyAdapter bookStudyAdapter = new OfflineBookStudyAdapter(downloadStudyTopics, getActivity());

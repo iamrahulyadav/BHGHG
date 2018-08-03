@@ -26,14 +26,14 @@ public class MCQ extends SugarRecord {
     String rightAnswerDesc;
     String photoUrl;
     String mcqId;
-    int year;
+    String year;
     String board;
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 

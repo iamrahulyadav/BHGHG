@@ -165,7 +165,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void RetrieveId(String deviceId, final String token) {
         String tag_string_req = "req_register";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://163.172.172.57:5000/api/Users" + "?deviceId=" + deviceId,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.MAIN_URL+"/api/Users" + "?deviceId=" + deviceId,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -177,7 +177,9 @@ public class SplashActivity extends AppCompatActivity {
                             for (int i = 0; i < dataArray.length(); i++) {
                                 JSONObject userData = dataArray.getJSONObject(i);
                                 AccountManager.setId(getApplicationContext(), userData.getString("_id"));
-                                RegisterMeta(AccountManager.getUserId(getApplicationContext()), token);
+                                Log.e("USER ID",userData.getString("_id")) ;
+                                RegisterMeta(userData.getString("_id"), token);
+                                break;
                             }
                         } catch (JSONException e) {
                             Log.e("Json Exception", e.getMessage() + "");
@@ -195,7 +197,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private void RetrieveUserData(final String userId, final String token) {
         String tag_string_req = "req_register";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://163.172.172.57:5000/api/usermeta/uid/" + userId,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.MAIN_URL+"/api/usermeta/uid/" + userId,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -208,7 +210,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
                             if (userData.has("profilePhoto")) {
-                                AccountManager.setPhotoUrl(getApplicationContext(), "http://163.172.172.57:5000/media/" + userData.getString("profilePhoto"));
+                                AccountManager.setPhotoUrl(getApplicationContext(), AppConstants.MAIN_URL+"/media/" + userData.getString("profilePhoto"));
                             }
                             if (userData.has("lastname")) {
                                 AccountManager.setLastName(getApplicationContext(), userData.getString("lastname"));

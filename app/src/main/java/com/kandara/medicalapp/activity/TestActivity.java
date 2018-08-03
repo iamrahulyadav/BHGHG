@@ -1,11 +1,15 @@
 package com.kandara.medicalapp.activity;
 
+import android.os.Build;
 import android.os.CountDownTimer;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -15,19 +19,35 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.kandara.medicalapp.Adapter.QuestionGridSelectAdapter;
+import com.kandara.medicalapp.Adapter.TestAdapter;
+import com.kandara.medicalapp.App.MedicalApplication;
 import com.kandara.medicalapp.Dialogs.QuestionSelectDialog;
 import com.kandara.medicalapp.Model.GridQuestion;
 import com.kandara.medicalapp.Model.MCQ;
 import com.kandara.medicalapp.Model.MCQRevision;
+import com.kandara.medicalapp.Model.Study;
 import com.kandara.medicalapp.Model.Test;
+import com.kandara.medicalapp.Model.TestScoreItem;
 import com.kandara.medicalapp.R;
+import com.kandara.medicalapp.Util.AccountManager;
+import com.kandara.medicalapp.Util.AppConstants;
 import com.kandara.medicalapp.Util.BGTask;
 import com.kandara.medicalapp.Util.JsondataUtil;
 import com.kandara.medicalapp.Util.Scheduler;
+import com.kandara.medicalapp.Util.UtilDialog;
 import com.orm.SugarRecord;
 import com.orm.query.Condition;
 import com.orm.query.Select;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,7 +62,7 @@ public class TestActivity extends AppCompatActivity {
     /**
      * BEFORE QUIZ STUFFS
      */
-    private int testid;
+    private String testid;
     private LinearLayout beforeStartLayout;
     private Button startBtn;
     private TextView tvTestTime, tvTestDesc, tvTestTitle;
@@ -61,8 +81,6 @@ public class TestActivity extends AppCompatActivity {
     private MCQ mcq;
     private int currentIndex = 0;
     private int rightAnswerpos;
-    private LinearLayout btnAddToRevision, btnMoreInfo;
-    private TextView tvAddToRevision;
     private TextView tvQuestion, tvOptionA, tvOptionB, tvOptionC, tvOptionD;
     private RelativeLayout optionALayout, optionBLayout, optionCLayout, optionDLayout;
     private boolean questionSelected = false;
@@ -70,6 +88,7 @@ public class TestActivity extends AppCompatActivity {
     private HashMap<Integer, Integer> previousAttempts;
     private HashMap<Integer, Integer> previousRightAnswerPositions;
     private CountDownTimer countDownTimer;
+    private long testStartTime = 0;
 
     /**
      * AFTER QUIZ STUFFS
@@ -79,14 +98,16 @@ public class TestActivity extends AppCompatActivity {
     private TextView tvScore, tvTotal;
     private Button exitBtn;
 
+    AppCompatImageView btnGrid;
+    private RelativeLayout progressView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
+        updateToolbarAndStatusBar();
         initBeforeQuiz();
-        initQuiz();
-        initAfterQuiz();
 
     }
 
@@ -105,6 +126,16 @@ public class TestActivity extends AppCompatActivity {
         }
         tvScore.setText(score + "");
         tvTotal.setText(currentTest.getMcqArrayList().size() + "");
+        postFinalScore(score);
+    }
+
+
+    private void showPreviousScore(int score, int total) {
+        beforeStartLayout.setVisibility(View.GONE);
+        testLayout.setVisibility(View.GONE);
+        afterTestLayout.setVisibility(View.VISIBLE);
+        tvScore.setText(score + "");
+        tvTotal.setText(total + "");
     }
 
     private void initAfterQuiz() {
@@ -117,32 +148,32 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void initQuiz() {
+        initBeforeQuiz();
         previousAttempts = new HashMap<>();
         previousRightAnswerPositions = new HashMap<>();
         mcqArrayList = new ArrayList<>();
-        long duration=currentTest.getTestStartTime()+currentTest.getTestDuration()-Calendar.getInstance().getTimeInMillis();
-        if(duration>100) {
-            countDownTimer = new CountDownTimer(duration, 1000) {
-                @Override
-                public void onTick(long l) {
-                    long millis = Long.parseLong((currentTest.getTestStartTime() + currentTest.getTestDuration() - Calendar.getInstance().getTimeInMillis()) + "");
-                    String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
-                            TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
-                            TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
-                    tvTimeRemaining.setText(hms);
-                }
+        countDownTimer = new CountDownTimer(currentTest.getTestDuration(), 1000) {
+            @Override
+            public void onTick(long l) {
+                long millis = Long.parseLong((testStartTime+currentTest.getTestDuration() - Calendar.getInstance().getTimeInMillis()) + "");
+                String hms = String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
+                        TimeUnit.MILLISECONDS.toMinutes(millis) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millis)),
+                        TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)));
+                tvTimeRemaining.setText(hms);
+            }
 
-                @Override
-                public void onFinish() {
-                    showScore();
-                }
-            };
-            countDownTimer.start();
-        }
+            @Override
+            public void onFinish() {
+                showScore();
+            }
+        };
+        countDownTimer.start();
+
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                initAfterQuiz();
                 showScore();
             }
         });
@@ -151,8 +182,9 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void initBeforeQuiz() {
-
+        btnGrid = findViewById(R.id.btnGrid);
         afterTestLayout = findViewById(R.id.afterTestLayout);
+        progressView = findViewById(R.id.progressView);
         tvScore = findViewById(R.id.tvScore);
         tvTotal = findViewById(R.id.tvTotal);
         exitBtn = findViewById(R.id.exitBtn);
@@ -161,9 +193,6 @@ public class TestActivity extends AppCompatActivity {
         tvOptionB = findViewById(R.id.tvOptionB);
         tvOptionC = findViewById(R.id.tvOptionC);
         tvOptionD = findViewById(R.id.tvOptionD);
-        btnMoreInfo = findViewById(R.id.btnMoreInfo);
-        btnAddToRevision = findViewById(R.id.btnAddtoRevision);
-        tvAddToRevision = findViewById(R.id.tvAddTorevision);
         optionALayout = findViewById(R.id.optionALayout);
         optionBLayout = findViewById(R.id.optionBLayout);
         optionCLayout = findViewById(R.id.optionCLayout);
@@ -174,33 +203,93 @@ public class TestActivity extends AppCompatActivity {
         tvQuestion = findViewById(R.id.tvComment);
         submitBtn = findViewById(R.id.submitBtn);
         tvTimeRemaining = findViewById(R.id.tvTimeRemaining);
-        testid = getIntent().getIntExtra("id", 0);
+        testid = getIntent().getStringExtra("tid");
         beforeStartLayout = findViewById(R.id.beforeStartLayout);
         startBtn = findViewById(R.id.startBtn);
         startBtn.setEnabled(true);
         tvTestTime = findViewById(R.id.test_time);
         tvTestDesc = findViewById(R.id.test_desc);
         tvTestTitle = findViewById(R.id.test_title);
-        currentTest = JsondataUtil.getTestById(getApplicationContext(), testid);
-        tvTestTitle.setText(currentTest.getName());
-        tvTestDesc.setText(currentTest.getDescription());
-        scheduler = new Scheduler(new Scheduler.RepeatingTask() {
-            @Override
-            public void Do() {
-                updateTime();
-            }
-        });
-        updateTime();
-        scheduler.startRepeatingTask();
-
-        startBtn.setOnClickListener(new View.OnClickListener() {
+        btnGrid.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                scheduler.stopRepeatingTask();
-                beforeStartLayout.setVisibility(View.GONE);
-                testLayout.setVisibility(View.VISIBLE);
+
+
+                final ArrayList<Study> studyArrayList = new ArrayList<>();
+                int i = 0;
+                for (MCQ mcq : mcqArrayList) {
+                    final Study study = new Study();
+                    study.setId(i);
+                    study.setQuestionNumber(i + 1);
+                    study.setStudyId(currentTest.getTid()+currentTest.getMcqArrayList().get(i).getQuestion());
+                    studyArrayList.add(study);
+                    i++;
+                }
+                final QuestionSelectDialog questionSelectDialog = new QuestionSelectDialog(TestActivity.this);
+                questionSelectDialog.setActivity(TestActivity.this);
+                questionSelectDialog.setQuestionArray(studyArrayList);
+                questionSelectDialog.setOnQuestionSelected(new QuestionGridSelectAdapter.OnQuestionSelected() {
+                    @Override
+                    public void QuestionSelected(int questionNumber) {
+                        currentIndex = questionNumber - 1;
+                        PopulateMCQ();
+                        questionSelectDialog.dismiss();
+                    }
+                });
+                questionSelectDialog.show();
             }
         });
+        getTest();
+    }
+
+    private void postInitialScore() {
+
+        JSONObject params = new JSONObject();
+        try {
+            params.put("_sid", AccountManager.getUserId(getApplicationContext()));
+            params.put("timeTaken", 0);
+            params.put("score", 0);
+        } catch (JSONException e) {
+        }
+        String tag_string_req = "post_study";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_TEST_POSTSCORE + "/" + currentTest.getTid(), params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.e("RESPONSE", response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        MedicalApplication.getInstance().addToRequestQueue(jsonObjectRequest, tag_string_req);
+    }
+
+    private void postFinalScore(int score) {
+
+        JSONObject params = new JSONObject();
+        try {
+            params.put("_sid", AccountManager.getUserId(getApplicationContext()));
+
+            long millis = Long.parseLong((testStartTime+currentTest.getTestDuration() - Calendar.getInstance().getTimeInMillis()) + "");
+            params.put("timeTaken", currentTest.getTestDuration()-millis);
+            params.put("score", score);
+        } catch (JSONException e) {
+        }
+        String tag_string_req = "post_study";
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConstants.URL_TEST_POSTSCORE + "/" + currentTest.getTid(), params, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.e("RESPONSE", response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        MedicalApplication.getInstance().addToRequestQueue(jsonObjectRequest, tag_string_req);
     }
 
     private void updateTime() {
@@ -224,12 +313,12 @@ public class TestActivity extends AppCompatActivity {
             double timeelapsed = currentTime - currentTest.getTestStartTime();
             int hours = (int) ((timeelapsed / (1000 * 60 * 60)) % 24);
             int minutes = (int) ((timeelapsed / (1000 * 60)) % 60);
-            if (minutes <= 30 && hours<1) {
+            if (minutes <= 30 && hours < 1) {
                 enableStartTest();
                 tvTestTime.setText("Test has started for " + minutes + " min. Start soon or you will miss out.");
             } else if (minutes > 30) {
                 disableStartTest();
-                tvTestTime.setText("Test has been running for " + hours + "hours "+minutes+" min. You cant start now.");
+                tvTestTime.setText("Test Closed");
             } else if (timeelapsed > currentTest.getTestDuration()) {
                 disableStartTest();
                 tvTestTime.setText("Test has already finished");
@@ -241,8 +330,106 @@ public class TestActivity extends AppCompatActivity {
         }
     }
 
+    public void getTest() {
+        progressView.setVisibility(View.VISIBLE);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_TEST + "/" + testid,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e("TEST", response);
+                        progressView.setVisibility(View.GONE);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONObject testJsonObject = jsonObject.getJSONObject("data");
+                            Test test = new Test();
+                            test.setTid(testJsonObject.getString("_id"));
+                            test.setName(testJsonObject.getString("name"));
+                            test.setDescription(testJsonObject.getString("desc"));
+                            test.setTestDuration(testJsonObject.getLong("totalTime"));
+                            test.setTestStartTime(testJsonObject.getLong("startTime"));
+
+
+                            JSONArray questionArray = testJsonObject.getJSONArray("questions");
+                            for (int i = 0; i < questionArray.length(); i++) {
+
+                                JSONObject eachDataJsonObject = questionArray.getJSONObject(i);
+                                final MCQ mcq = new MCQ();
+                                if (eachDataJsonObject.has("imageUrl")) {
+                                    mcq.setPhotoUrl(AppConstants.MAIN_URL + eachDataJsonObject.getString("imageUrl"));
+                                }
+                                mcq.setRightAnswerDesc(eachDataJsonObject.getString("rightAnswerDesc"));
+                                mcq.setRightAnswer(eachDataJsonObject.getString("rightAnswer"));
+                                mcq.setCat(eachDataJsonObject.getString("category"));
+                                mcq.setQuestion(eachDataJsonObject.getString("question"));
+                                mcq.setYear(eachDataJsonObject.getString("subCategory").split("SSEPPE")[1]);
+                                mcq.setBoard(eachDataJsonObject.getString("subCategory").split("SSEPPE")[0]);
+                                JSONArray wrongAnswerArray = eachDataJsonObject.getJSONArray("wrongAnswers");
+                                mcq.setWrongAnswer1(wrongAnswerArray.getString(0));
+                                mcq.setWrongAnswer2(wrongAnswerArray.getString(1));
+                                mcq.setWrongAnswer3(wrongAnswerArray.getString(2));
+                                test.addMCQ(mcq);
+                            }
+
+
+                            JSONArray testScoreArray = testJsonObject.getJSONArray("testScores");
+                            if(testScoreArray.length()>0){
+                                TestScoreItem testScoreItem=new TestScoreItem();
+                                for(int m=0; m<testScoreArray.length(); m++){
+                                    JSONObject scoreObject=testScoreArray.getJSONObject(m);
+                                    testScoreItem.setSid(scoreObject.getString("_sid"));
+                                    Log.e("SID", scoreObject.getString("_sid"));
+                                    Log.e("CSID", AccountManager.getUserId(getApplicationContext()));
+                                    testScoreItem.setTimeTaken(scoreObject.getDouble("timeTaken"));
+                                    testScoreItem.setScore(scoreObject.getInt("score"));
+                                    if(testScoreItem.getSid().equalsIgnoreCase(AccountManager.getUserId(getApplicationContext()))){
+                                        initAfterQuiz();
+                                        showPreviousScore(testScoreItem.getScore(), questionArray.length());
+                                        break;
+                                    }
+                                }
+                            }
+
+                            currentTest = test;
+
+                            tvTestTitle.setText(currentTest.getName());
+                            tvTestDesc.setText(currentTest.getDescription());
+                            scheduler = new Scheduler(new Scheduler.RepeatingTask() {
+                                @Override
+                                public void Do() {
+                                    updateTime();
+                                }
+                            });
+                            updateTime();
+                            scheduler.startRepeatingTask();
+
+                            startBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    testStartTime = Calendar.getInstance().getTimeInMillis();
+                                    initQuiz();
+                                    postInitialScore();
+                                    scheduler.stopRepeatingTask();
+                                    beforeStartLayout.setVisibility(View.GONE);
+                                    testLayout.setVisibility(View.VISIBLE);
+                                }
+                            });
+                        } catch (JSONException e) {
+                            Log.e("Error", e.getMessage());
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        progressView.setVisibility(View.GONE);
+                        error.printStackTrace();
+                    }
+                });
+        MedicalApplication.getInstance().addToRequestQueue(stringRequest, "test");
+    }
+
     private void disableStartTest() {
-        startBtn.setEnabled(false);
+        startBtn.setEnabled(true);
         startBtn.setBackgroundResource(R.drawable.bg_test_start_disabled);
     }
 
@@ -260,32 +447,6 @@ public class TestActivity extends AppCompatActivity {
         } else {
             rightAnswerpos = new Random().nextInt(4);
         }
-
-        final MCQRevision revision = new MCQRevision();
-        revision.setQuestionId(mcq.getMcqId());
-        revision.setIsStudy(0);
-        if (Select.from(MCQRevision.class).where(Condition.prop("id").eq(mcq.getId())).count()!=0) {
-            tvAddToRevision.setText("Revision -");
-        } else {
-            tvAddToRevision.setText("Revision +");
-        }
-
-
-        btnAddToRevision.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (Select.from(MCQRevision.class).where(Condition.prop("id").eq(mcq.getId())).count()!=0) {
-                    revision.delete();
-                    tvAddToRevision.setText("Revision +");
-                    Toast.makeText(getApplicationContext(), "Removed from revision", Toast.LENGTH_SHORT).show();
-                } else {
-                    revision.save();
-                    tvAddToRevision.setText("Revision -");
-                    Toast.makeText(getApplicationContext(), "Added to Revision", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
 
         switch (rightAnswerpos) {
@@ -410,8 +571,10 @@ public class TestActivity extends AppCompatActivity {
 
 
     private void highlightRightWrong(final View selectedOption, final int currentPos, final TextView tvOption) {
+
+
         GridQuestion gridQuestion = new GridQuestion();
-        gridQuestion.setQuestionId(mcq.getMcqId());
+        gridQuestion.setQuestionId(currentTest.getTid()+currentTest.getMcqArrayList().get(currentIndex).getQuestion());
         gridQuestion.save();
         if (!questionSelected) {
             questionSelected = true;
@@ -424,6 +587,7 @@ public class TestActivity extends AppCompatActivity {
 
 
     private void resetOptions() {
+
         tvOptionA.setTextColor(getResources().getColor(R.color.colorDarkGray));
         optionALayout.setBackgroundResource(R.drawable.bg_options_normal);
         tvOptionB.setTextColor(getResources().getColor(R.color.colorDarkGray));
@@ -433,4 +597,18 @@ public class TestActivity extends AppCompatActivity {
         tvOptionD.setTextColor(getResources().getColor(R.color.colorDarkGray));
         optionDLayout.setBackgroundResource(R.drawable.bg_options_normal);
     }
+
+    public void updateToolbarAndStatusBar() {
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(ContextCompat.getColor(this, R.color.main_bg_color));
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decor = getWindow().getDecorView();
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+    }
+
 }

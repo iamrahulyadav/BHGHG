@@ -12,6 +12,7 @@ import android.widget.GridView;
 
 import com.kandara.medicalapp.Adapter.QuestionGridSelectAdapter;
 import com.kandara.medicalapp.R;
+import com.kandara.medicalapp.Util.HtmlCleaner;
 
 import java.util.ArrayList;
 
@@ -47,6 +48,16 @@ public class MoreInfoDialog extends Dialog {
         setContentView(R.layout.moreinfodialog);
         wbMoreInfo=findViewById(R.id.wbMoreInfo);
         String answer=moreInfo;
+        if(answer.equalsIgnoreCase("nodesc")){
+            answer="<p style=\"text-align: center;\"><span style=\"color: rgb(40, 50, 78);\">Explanation of this question will be available soon. </span></p>\n" +
+                    "\n" +
+                    "<p style=\"text-align: center;\">\n" +
+                    "\t<br>\n" +
+                    "</p>\n" +
+                    "\n" +
+                    "<p style=\"text-align: center;\"><strong>Stay Updated!</strong></p>";
+        }
+        answer= HtmlCleaner.cleanThis(answer);
         answer=answer.replaceAll("font-size: 10.0pt; ", "");
         answer="\n" +
                 "<html>\n" +

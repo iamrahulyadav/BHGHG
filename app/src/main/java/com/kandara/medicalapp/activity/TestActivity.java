@@ -429,7 +429,7 @@ public class TestActivity extends AppCompatActivity {
     }
 
     private void disableStartTest() {
-        startBtn.setEnabled(true);
+        startBtn.setEnabled(false);
         startBtn.setBackgroundResource(R.drawable.bg_test_start_disabled);
     }
 

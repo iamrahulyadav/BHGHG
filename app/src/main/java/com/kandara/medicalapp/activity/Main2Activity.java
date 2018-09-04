@@ -49,8 +49,8 @@ public class Main2Activity extends AppCompatActivity {
         //ss();
         //getAllMCQ();
         //downloadAllContent();
-        //postAllMCQ();
-        postAllStudy();
+        postAllMCQ();
+        //postAllStudy();
         //getAllDiscussion();
     }
 
@@ -300,7 +300,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private void getAllMCQ() {
         String tag_string_req = "req_study";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_MCQ+"?limit=1000&page=1",
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppConstants.URL_MCQ+"?subCategory=IOMSSEPPE2074%20(B)",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {

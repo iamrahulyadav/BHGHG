@@ -113,6 +113,8 @@ public class MyProfilefragment extends Fragment {
 
         if (!AccountManager.getUserPhotourl(getContext()).isEmpty()) {
             Picasso.with(getActivity()).load(AccountManager.getUserPhotourl(getContext())).into(imgProfile);
+        }else{
+            imgProfile.setImageResource(R.drawable.ic_default_profile_photo);
         }
 
 

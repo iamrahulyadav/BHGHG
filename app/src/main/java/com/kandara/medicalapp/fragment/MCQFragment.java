@@ -92,6 +92,9 @@ public class MCQFragment extends Fragment {
         if (boardYearQueryList.contains("ALL")) {
 
             ArrayList<String> boards=new ArrayList<>();
+            boards.add("AIPGME 2012");
+            boards.add("AIPGME 2013/14");
+            boards.add("AIPGME 2015/16");
             boards.add("BPKIHS 72");
             boards.add("BPKIHS 2073");
             boards.add("BPKIHS 2074");
@@ -117,6 +120,7 @@ public class MCQFragment extends Fragment {
             boards.add("PSC 2072");
             boards.add("PSC 2073 (A)");
             boards.add("PSC 2073 (B)");
+            boards.add("PSC 2074");
             String boardFilterQuery = "";
             for (int i = 0; i < boards.size(); i++) {
                 if (i != boards.size() - 1) {

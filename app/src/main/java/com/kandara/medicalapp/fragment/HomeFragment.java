@@ -1,6 +1,9 @@
 package com.kandara.medicalapp.fragment;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -11,16 +14,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.kandara.medicalapp.Adapter.CustomPagerAdapter;
 import com.kandara.medicalapp.Adapter.RecentNewsRecyclerAdapter;
 import com.kandara.medicalapp.Adapter.StudyActRecyclerAdapter;
 import com.kandara.medicalapp.Model.BannerTopic;
+import com.kandara.medicalapp.Model.SliderItem;
 import com.kandara.medicalapp.Model.Topic;
 import com.kandara.medicalapp.R;
+import com.kandara.medicalapp.Util.AccountManager;
 import com.kandara.medicalapp.Util.Indicator.DotsIndicator;
 import com.kandara.medicalapp.Util.JsondataUtil;
+import com.kandara.medicalapp.Util.UtilDialog;
 import com.kandara.medicalapp.View.roundedimageview.RoundedImageView;
 import com.kandara.medicalapp.activity.MainActivity;
 import com.squareup.picasso.Picasso;
@@ -35,16 +42,17 @@ import java.util.TimerTask;
 public class HomeFragment extends Fragment {
 
     RoundedImageView imgTopic;
-    ArrayList<BannerTopic> newsArrayList;
+    ArrayList<SliderItem> sliderItemArrayListM;
     ViewPager topicsViewPager;
     CustomPagerAdapter customPagerAdapter;
     DotsIndicator dotsIndicator;
 
     Button btnExploreButton;
-    Button btnUpgrade;
     Button btnDiscussion;
     Button btnExploreMCQ;
 
+    LinearLayout upgradeLayout;
+    Button btnUpgrade;
 
     int currentPage = 0;
     Timer timer;
@@ -60,8 +68,43 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        newsArrayList = JsondataUtil.getBannerTopics(getContext());
-        customPagerAdapter = new CustomPagerAdapter(getContext(), newsArrayList);
+        sliderItemArrayListM=new ArrayList<>();
+        sliderItemArrayListM.add(new SliderItem("Upgrade today to Premium user to get following additional features: ", "1.\tFull content access. \n" +
+                "2.\tAbility to download the contents for offline view.\n" +
+                "3.\tSearch option.", new SliderItem.ClickListener() {
+            @Override
+            public void onClick() {
+                UtilDialog.showUpgradeDialog(getActivity());
+            }
+        }, "https://images.pexels.com/photos/355934/pexels-photo-355934.jpeg?auto=compress&cs=tinysrgb&h=350"));
+        sliderItemArrayListM.add(new SliderItem("PG Access", "MD/MS Entrance Guide Book", new SliderItem.ClickListener() {
+            @Override
+            public void onClick() {
+                startActivity(getOpenFacebookIntent(getContext()));
+            }
+        }, "https://scontent.fktm3-1.fna.fbcdn.net/v/t1.0-9/15400462_1262817427072969_4386424617494395300_n.png?_nc_cat=0&oh=9ac38b195e90bd1b0bb1b9b2a1b6c777&oe=5C14087E"));
+        sliderItemArrayListM.add(new SliderItem("Your advertisement here", "Contact us in smartpgnepal@gmail.com for your advertisement", new SliderItem.ClickListener() {
+            @Override
+            public void onClick() {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("plain/text");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "smartpgnepal@gmail.com" });
+                startActivity(Intent.createChooser(intent, ""));
+            }
+        }, "https://camblycontent.files.wordpress.com/2017/02/advertising-word-block.jpg?w=700"));
+        customPagerAdapter = new CustomPagerAdapter(getContext(), sliderItemArrayListM);
+        upgradeLayout=view.findViewById(R.id.upgradeLayout);
+        btnUpgrade=view.findViewById(R.id.btnUpgrade);
+        if(AccountManager.isUserPremium(getActivity())){
+            upgradeLayout.setVisibility(View.GONE);
+        }
+
+        btnUpgrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UtilDialog.showUpgradeDialog(getActivity());
+            }
+        });
         dotsIndicator = view.findViewById(R.id.dots_indicator);
         btnExploreMCQ=view.findViewById(R.id.btnExploreMCQ);
         topicsViewPager = view.findViewById(R.id.topicsViewPager);
@@ -72,7 +115,7 @@ public class HomeFragment extends Fragment {
         topicsViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                String url = newsArrayList.get(position).getPhotoUrl();
+                String url = sliderItemArrayListM.get(position).getPhotoUrl();
                 Picasso.with(getActivity()).load(url).into(imgTopic);
             }
 
@@ -134,6 +177,16 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public static Intent getOpenFacebookIntent(Context context) {
+
+        try {
+            context.getPackageManager().getPackageInfo("com.facebook.katana", 0);
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("fb://page/113921451962578"));
+        } catch (Exception e) {
+            return new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/<user_name_here>"));
+        }
     }
 
 }

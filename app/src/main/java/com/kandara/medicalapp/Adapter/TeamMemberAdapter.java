@@ -55,15 +55,6 @@ public class TeamMemberAdapter extends BaseAdapter {
         tvName.setText(teamMemberItem.getName());
         tvPosition.setText(teamMemberItem.getPosition());
         tvEmail.setText(teamMemberItem.getEmail());
-        tvEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("plain/text");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { teamMemberItem.getEmail()});
-                activity.startActivity(Intent.createChooser(intent, ""));
-            }
-        });
         return view;
     }
 }

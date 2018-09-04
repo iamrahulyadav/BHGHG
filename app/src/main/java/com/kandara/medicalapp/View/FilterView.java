@@ -163,6 +163,9 @@ public class FilterView extends RelativeLayout {
         ArrayList<BoardItem> adapterItemArrayList=new ArrayList<>();
         ArrayList<String> boards=new ArrayList<>();
         boards.add("ALL");
+        boards.add("AIPGME 2012");
+        boards.add("AIPGME 2013/14");
+        boards.add("AIPGME 2015/16");
         boards.add("BPKIHS 72");
         boards.add("BPKIHS 2073");
         boards.add("BPKIHS 2074");
@@ -188,6 +191,7 @@ public class FilterView extends RelativeLayout {
         boards.add("PSC 2072");
         boards.add("PSC 2073 (A)");
         boards.add("PSC 2073 (B)");
+        boards.add("PSC 2074");
         for(String board:boards){
             BoardItem boardItem=new BoardItem();
             boardItem.setChecked(false);

@@ -10,6 +10,7 @@ import android.util.Base64;
 import android.view.View;
 
 import com.kandara.medicalapp.Dialogs.TermsAndAgreementDialog;
+import com.kandara.medicalapp.Dialogs.UpgradeInstructionDialog;
 import com.kandara.medicalapp.R;
 import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
@@ -23,8 +24,10 @@ public class UtilDialog {
         new LovelyStandardDialog(activity, LovelyStandardDialog.ButtonLayout.VERTICAL)
                 .setTopColorRes(R.color.colorPrimary)
                 .setIcon(R.drawable.ic_trending_up_black_24dp)
-                .setTitle("Premium Only")
-                .setMessage("This feature is available only for the premium users. Upgrade now to get the most out of this app")
+                .setTitle("Premium User only")
+                .setMessage("This feature is available only for the premium users. Upgrade now to get the following features\n1.\tFull content access. Free users can only use around 10% of the contents. \n" +
+                        "2.\tAbility to download the contents for offline view. \n" +
+                        "3.\tSearch option. \n")
                 .setPositiveButton("Upgrade", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -59,6 +62,14 @@ public class UtilDialog {
 
     }
 
+
+    public static void showUpgradeInstruction(final Activity activity){
+        UpgradeInstructionDialog upgradeInstructionDialog=new UpgradeInstructionDialog(activity);
+        upgradeInstructionDialog.setActivity((AppCompatActivity) activity);
+        upgradeInstructionDialog.show();
+
+    }
+
     public static void showActualUpgradeDialog(final Activity activity){
 
         final String deviceId = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
@@ -67,7 +78,7 @@ public class UtilDialog {
                 .setIcon(R.drawable.prem)
                 .setTitle("Upgrade Plan")
                 
-                .setMessage("Upgrade now to get the following features\n1. Full content access.\n2. Ability to download the content for offline view.\n3. Search option.\n\nSteps to upgrade\n Copy the following transaction code - "+deviceId+"\nGo to send money inside Esewa and send Rs. 1000 to esewa account 9855065200.\nInside send money menu, go to Remarks and send the message in following pattern \nTransaction code<space>Full Name<space>email id of the user.\nActivation for premium user may take upto 24 hours.\nYou will receive an email after activation.")
+                .setMessage("Steps to upgrade\n Copy the following transaction code - "+deviceId+"\nGo to send money inside Esewa and send Rs. 1000 to esewa account 9852050660.\nInside send money menu, go to Remarks and send the message in following pattern \nTransaction code<space>Full Name<space>email id of the user.\nActivation for premium user may take upto 24 hours.\nYou will receive an email after activation.")
                 .setPositiveButton("Copy to Clipboard", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

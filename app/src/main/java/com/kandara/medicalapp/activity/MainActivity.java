@@ -59,6 +59,7 @@ import com.kandara.medicalapp.Util.UtilDialog;
 import com.kandara.medicalapp.View.catloadinglibrary.CatLoadingView;
 import com.kandara.medicalapp.View.roundedimageview.RoundedImageView;
 import com.kandara.medicalapp.fragment.AboutUsFragment;
+import com.kandara.medicalapp.fragment.ContactUsFragment;
 import com.kandara.medicalapp.fragment.ContributionFragment;
 import com.kandara.medicalapp.fragment.DiscussionFragment;
 import com.kandara.medicalapp.fragment.DownloadFragment;
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_DOWNLOADS = "Downloads";
     private static final String TAG_FAQ = "FAQ";
     private static final String TAG_ABOUT_US= "About Us";
+    private static final String TAG_CONTACT_US= "Contact Us";
     public static String CURRENT_TAG = TAG_HOME;
     private Handler mHandler;
     private User currentUser;
@@ -123,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean isSearchBar = true;
     ListView listView;
     NavDrawerAdapter navDrawerAdapter;
-    String navs[] = {"Home", "Read Book", "Online Test", "Past Questions", "Revision", "My Profile", "Discussion", "Downloads", "FAQ", "About Us"};
+    String navs[] = {"Home", "Read Book", "Online Test", "Past Questions", "Revision", "My Profile", "Discussion", "Downloads", "FAQ", "About Us", "Contact Us"};
 
     CatLoadingView mView;
     private int SELECT_PHOTO = 233;
@@ -330,6 +332,15 @@ public class MainActivity extends AppCompatActivity {
                 CURRENT_TAG = TAG_ABOUT_US;
                 break;
 
+
+            case 10:
+                navItemIndex = 10;
+                isSearchBar = false;
+                updateToolbarAndStatusBar("Contact Us");
+                CURRENT_TAG = TAG_CONTACT_US;
+                break;
+
+
             default:
                 navItemIndex = 0;
         }
@@ -352,11 +363,18 @@ public class MainActivity extends AppCompatActivity {
             txtName.setText(AccountManager.getFirstName(getApplicationContext()) + " " + AccountManager.getLastName(getApplicationContext()));
         }
 
+        String email="";
         if (AccountManager.getEmail(getApplicationContext()).isEmpty()) {
-            txtEmail.setText("guest@guest.com");
+            email="guest@guest.com";
         } else {
-            txtEmail.setText(AccountManager.getEmail(getApplicationContext()));
+            email=AccountManager.getEmail(getApplicationContext());
         }
+        if(AccountManager.isUserPremium(getApplicationContext())){
+            email+="\nPremium User";
+        }else{
+            email+="\nFree User";
+        }
+        txtEmail.setText(email);
         try {
             Picasso.with(MainActivity.this).load(AccountManager.getUserPhotourl(getApplicationContext())).into(imgProfile);
         } catch (IllegalArgumentException e) {
@@ -504,6 +522,10 @@ public class MainActivity extends AppCompatActivity {
             case 9:
                 AboutUsFragment aboutUsFragment=new AboutUsFragment();
                 return aboutUsFragment;
+
+            case 10:
+                ContactUsFragment contactUsFragment=new ContactUsFragment();
+                return contactUsFragment;
 
             default:
                 return new HomeFragment();

@@ -16,7 +16,7 @@
         <RelativeLayout
             android:id="@+id/frame_viewpager"
             android:layout_width="match_parent"
-            android:layout_height="150dp">
+            android:layout_height="200dp">
 
             <com.kandara.medicalapp.View.roundedimageview.RoundedImageView
                 android:id="@+id/img_topic"
@@ -57,6 +57,48 @@
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/upgradeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_toolbar_top"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Premium User"
+                android:textColor="@color/colorDarkDarkGray" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Free users do have access to only around 10% of the contents. Premium users can have full content access, use search option and will be able to download the contents for offline view"
+                android:textColor="@color/colorDarkGray" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center|right"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnUpgrade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/bg_study_start"
+                    android:text="Upgrade"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorWhite" />
+            </LinearLayout>
+
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -188,6 +230,8 @@
 
 
         </LinearLayout>
+
+
 
 
 
